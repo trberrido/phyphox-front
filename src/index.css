@@ -1,0 +1,42 @@
+@import url(./fonts/fonts.css);
+
+:root {
+
+	--background: #121212;
+	--background-variant: #1B1A1A;
+	--background-overlay: #202932;
+	--text-color: #ADADAD;
+	--text-color-variant: #FFFFFF;
+	--button-background: #ADADAD;
+	--button-text: #000000;
+	
+	--text-color-theme-light: #3A3A3A;
+	--background-theme-light: #FFFFFF;
+	
+	--primary-color: #EF7925;
+	--primary-color-darker: #3f210b;
+	--secondary-color: #2C79EC;
+	--secondary-color-darker: #013C95;
+	
+	--spacing-xlarge: 3rem;
+	--spacing-large: 2rem;
+	--spacing-regular: 1rem;
+	--spacing-small: .5rem;
+
+	--spacing-site-left: calc(2 * var(--spacing-large));
+	--spacing-regular: 1rem;
+
+	--radius-default: .5rem;
+
+	--delay-short: .25s;
+	--delay-middle: .5s;
+	--delay-long: 1s;
+
+	--xxlarge: 3rem;
+	--xlarge: 2rem;
+	--large: 1.5rem;
+	--big: 1.25rem;
+	--regular: 1rem;
+	--regular-line-height: 1.5rem;
+
+}

@@ -1,0 +1,17 @@
+.message {
+	margin-top: var(--spacing-large);
+	border: 1px solid;
+	padding: 1rem 2rem;
+	width: fit-content;
+	border-radius: var(--radius-default);
+}
+
+.message--error {
+	border-color: #b50000;
+	background-color: #370000;
+}
+
+.message--info {
+	border-color: var(--text-color);
+	background-color: var(--background-overlay);
+}

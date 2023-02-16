@@ -1,0 +1,27 @@
+.file-list { line-height: 1.2rem }
+
+.file-list__item {
+	margin-bottom: calc(.5 * var(--spacing-large));
+}
+
+.file-list__item--deleting {
+	opacity: .5;
+}
+
+.file-list__link {
+	margin-right: .5rem;
+	color: var(--secondary-color);
+}
+
+.file-list__link:hover {
+	opacity: .5;
+}
+
+.file-list__link:visited {
+	color: var(--secondary-color-darker);
+}
+
+.file-list__link--disabled {
+	pointer-events: none;
+	color: var(--button-background);
+}

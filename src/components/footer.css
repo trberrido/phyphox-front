@@ -1,0 +1,9 @@
+.footer {
+	background-color: var(--background-variant);
+	padding: var(--spacing-large);
+	padding-left: var(--spacing-site-left);
+}
+
+.footer__link {
+	color: var(--text-color);
+}

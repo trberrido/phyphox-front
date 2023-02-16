@@ -1,0 +1,32 @@
+.title__header {
+	color: var(--primary-color);
+	font-weight: 700;
+	margin: 0;
+}
+.title__content {
+	color: var(--text-color-variant);
+	font-weight: 700;
+	margin: 0;
+	font-size: var(--xxlarge);
+	line-height:var(--xxlarge);
+	margin: var(--spacing-regular) 0;
+}
+
+.title__icon {
+	font-family: 'icons';
+	vertical-align: text-bottom;
+	margin-left: .5rem;
+}
+
+.title__image {
+	margin-left: .5rem;
+	vertical-align: baseline;
+	height: .4rem;
+}
+
+@media screen and (max-width: 70rem){
+	.title__content {
+		font-size: var(--xlarge);
+		line-height:var(--xlarge);
+	}
+}

@@ -1,0 +1,71 @@
+.button {
+	padding: calc(var(--spacing-large) * .35) var(--spacing-large);
+	border-radius: 2rem;
+	border: none;
+	transition: .1s opacity, .2s background-color;
+	font-family: 'barlow', sans-serif;
+	display: inline-block;
+	text-decoration: none;
+}
+
+.button:hover { cursor: pointer }
+
+.button--regular {
+	color: var(--button-text);
+	background-color: var(--button-background);
+}
+
+.button--regular:hover {
+	opacity: .5;
+}
+
+.button--important {
+	background-color: var(--secondary-color);
+	color: var(--text-color-variant);
+	font-weight: 700;
+}
+
+.button--important:hover {
+	background-color: var(--secondary-color-darker);
+}
+
+.button--frozen {
+	background-color: var(--secondary-color-darker);
+}
+
+.button__icon {
+	font-family: 'icons';
+	margin-right: var(--spacing-small);
+	vertical-align: text-bottom;
+}
+
+.button-icon {
+	font-family: 'icons';
+	background-color: transparent;
+	color: var(--primary-color);
+	border: none;
+	text-align: center;
+}
+
+.button-icon:hover {
+	opacity: .5;
+	cursor: pointer;
+}
+
+.button-step--xxlarge {
+	width: 15rem;
+	margin-bottom: var(--spacing-regular);
+	margin-right: var(--spacing-regular);
+}
+
+.button-step__question--light {
+	color: black;
+}
+
+.button-step--small {
+	margin-left: var(--spacing-regular);
+}
+
+.button-step__second-part {
+	margin-bottom: var(--spacing-regular);
+}

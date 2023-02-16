@@ -1,0 +1,54 @@
+.configuration__link {
+	color: var(--secondary-color);
+	text-align: right;
+    width: 100%;
+    display: block;
+}
+
+.configuration-form__title {
+	color: var(--primary-color);
+	font-size: 1rem;
+}
+
+.configuration-form__commands {
+	display: flex;
+	justify-content: space-between;
+	margin-top: var(--spacing-large)
+}
+
+.visualization-graph__line-list {
+	border-bottom: 1px solid var(--primary-color-darker);
+	margin-bottom: var(--spacing-regular);
+	padding-bottom: var(--spacing-regular);
+	position: relative;
+}
+
+.configuration-visualization {
+	padding: var(--spacing-xlarge);
+	border: 1px solid var(--primary-color-darker);
+	position: relative;
+	margin-bottom: var(--spacing-large);
+}
+
+.configuration-visualization__delete-button {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	font-size: 1rem;
+}
+
+.graph-line__delete-button {
+	position: absolute;
+	top: 1.5rem;
+	right: -2rem;
+}
+
+.form-extravariable__wrapper {
+	display: flex;
+	align-items: center;
+}
+
+.form-extravariable__delete-button {
+	font-size: 1rem;
+	margin-left: var(--spacing-small);
+}

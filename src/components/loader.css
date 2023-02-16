@@ -1,0 +1,5 @@
+@keyframes blinker { to { opacity: 0; } }
+
+.loading {
+	animation: blinker var(--delay-long) infinite alternate;  
+}

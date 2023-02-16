@@ -1,0 +1,31 @@
+.spacer {
+	height: 4rem;
+}
+
+.spacer--xxlarge {
+	height: 8rem;
+}
+
+.spacer--xlarge {
+	height: 6rem;
+}
+
+.spacer--large {
+	height: 3rem;
+}
+
+.spacer--regular {
+	height: 2rem;
+}
+
+.spacer--small {
+	height: 1rem;
+}
+
+.spacer--xsmall {
+	height: .5rem;
+}
+
+.spacer--xxsmall {
+	height: .25rem;
+}
