@@ -8,14 +8,21 @@ import { AxisX, AxisY } from "./axis";
 const Legendes = (props) => {
 	return (<div className='graph-legendes__wrapper'>
 		{
-			props.data.map((element, index) => (
-				<div
-					className='graph-legende'
-					key={element.idline + '_' + index.toString()}>
-					<div style={{background:element.colorline}} className='graph-legende__colorsquare'></div>
-					<p className='graph-legende__text'>{element.idline}</p>
-				</div>
-			))
+			props.data.map((element, index) => {
+				if (element.idline){
+					return (
+						
+						<div
+							className='graph-legende'
+							key={element.idline + '_' + index.toString()}>
+							<div style={{background:element.colorline}} className='graph-legende__colorsquare'></div>
+							<p className='graph-legende__text'>{element.idline}</p>
+						</div>
+						
+					)
+				}
+				return null;
+			})
 		}
 	</div>);
 }
@@ -27,8 +34,8 @@ const Path = (props) => {
 			fill='none'
 			stroke={props.color}
 			d={
-			props.spotsCoordinates[0].map((spot, index) => (
-					(!index ? 'M ' : ' L ') +  props.xScale(spot) + ' ' + (props.yScale(props.spotsCoordinates[1][index])) 
+			props.coordinates.x.map((spot, index) => (
+					(!index ? 'M ' : ' L ') +  props.xScale(spot) + ' ' + (props.yScale(props.coordinates.y[index])) 
 				)
 				).join(' ')
 			}
@@ -42,11 +49,11 @@ const Plots = (props) => {
 	return (<>
 		{
 
-			props.plots[0].map((plot, index) => (
+			props.plots.x.map((plot, index) => (
 				<circle
 					key={index.toString()}
 					cx={props.xScale(plot)}
-					cy={props.yScale(props.plots[1][index])}
+					cy={props.yScale(props.plots.y[index])}
 					r={1}
 					fill='currentColor' />
 			))
@@ -60,26 +67,26 @@ const VisualizationGraph = (props) => {
 
 	const margins = props.margins;
 	const lines = props.lines;
-	const pathsCoordinates = props.data[1];
-	const plots = props.data[0];
+	const fits = props.data.fits ? props.data.fits : null; 
+	const measures = props.data.measures ? props.data.measures : null;
 	const colors = props.colors;
 	const dimensions = props.dimensions;
 	const ref = useRef(null);
-	const paths = lines.map((value) => (
+	const coloredFits = lines.map((value) => (
 		{
-			coordinates: pathsCoordinates[value.idline],
+			coordinates: fits[value.idline],
 			color: value.colorline
 		}
 	));
 	const linesMinMax = useMemo(() => {
 	
-		const everyLines = [...plots, ...Object.values(pathsCoordinates)];
-		const everyMinMax = everyLines.map((line) => {			
+		const everyLines = [...measures, ...Object.values(fits)];
+		const everyMinMax = everyLines.map((line) => {
 			return ({
-				x0: Math.min(...line[0]),
-				x1: Math.max(...line[0]),
-				y0: Math.min(...line[1]),
-				y1: Math.max(...line[1])
+				x0: Math.min(...line['x']),
+				x1: Math.max(...line['x']),
+				y0: Math.min(...line['y']),
+				y1: Math.max(...line['y'])
 			});
 		})
 
@@ -92,7 +99,7 @@ const VisualizationGraph = (props) => {
 			}
 		));
 
-	}, [plots, pathsCoordinates]);
+	}, [measures, fits]);
 
 	const [scales, setScales] = useState({
 		x: d3
@@ -119,7 +126,7 @@ const VisualizationGraph = (props) => {
 				.nice()
 		})
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [dimensions])
+	}, [dimensions, linesMinMax])
 
 	useEffect(() => {
 
@@ -179,23 +186,23 @@ const VisualizationGraph = (props) => {
 						height={dimensions.height - (margins.top + margins.bottom)}
 						transform={`translate(${margins.left}, ${margins.top})`} >
 						{		
-							plots.map((path, index) => (
+							measures.map((measure, index) => (
 								<Plots 
 									key={index.toString()}
 									xScale={scales.x}
 									yScale={scales.y}
-									plots={path}
+									plots={measure}
 								/>
 							))
 						}
 						{		
-							Object.entries(paths).map(([pathname, path], index) => (
+							Object.entries(coloredFits).map(([fitname, fit], index) => (
 								<Path 
-									key={pathname + '_' + index.toString()}
+									key={fitname}
 									xScale={scales.x}
 									yScale={scales.y}
-									spotsCoordinates={path.coordinates}
-									color={path.color}
+									coordinates={fit.coordinates}
+									color={fit.color}
 								/>
 							))
 						}
