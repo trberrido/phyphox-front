@@ -74,8 +74,6 @@ const Visualization = (props) => {
 		setIsFullscreen(!isFullscreen);
 	}
 
-	
-
 	useEffect(() => {
 
 		const captureEscape = (e) => {
@@ -157,6 +155,7 @@ const Visualization = (props) => {
 
 									'Graph':  		<VisualizationGraph
 														dimensions={dimensions}
+														isOnGoingExperiment={props.isOnGoingExperiment}
 														colors={colors}
 														axisLabel={{x: visualization.labelx, y: visualization.labely}}
 														data={visualization.displayedData}

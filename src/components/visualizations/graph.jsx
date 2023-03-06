@@ -130,6 +130,9 @@ const VisualizationGraph = (props) => {
 
 	useEffect(() => {
 
+		if (props.isOnGoingExperiment)
+			return ;
+
 		const zoom = d3
 		.zoom()
 		.scaleExtent([0.9,3])
@@ -159,7 +162,7 @@ const VisualizationGraph = (props) => {
 	//	return () => { zoom.on('zoom', null) }
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [dimensions])
+	}, [dimensions, props.isOnGoingExperiment])
 
 	return (
 	<>
