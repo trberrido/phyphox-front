@@ -6,7 +6,7 @@ import Spacer from '../spacer';
 
 const SingleNumberForm = (props) => {
 	return (<>
-		<Fieldset legend='pypox data'>
+		<Fieldset legend='phyphox data'>
 			<LabeledInput
 				id='id'
 				required={true}
@@ -33,7 +33,7 @@ const SingleNumberForm = (props) => {
 
 const HistogramForm = (props) => {
 	return (<>
-		<Fieldset legend='pypox data'>
+		<Fieldset legend='phyphox data'>
 			<LabeledInput
 				id='id'
 				required={true}
@@ -112,7 +112,7 @@ const GraphForm = (props) => {
 	const lineIsSingle = props.data.lines.length < 2 ? true : false;
 	return (<>
 
-		<Fieldset legend='pypox data'>
+		<Fieldset legend='phyphox data'>
 			<LabeledInput
 				id='idx'
 				modificationCSS='variant'
