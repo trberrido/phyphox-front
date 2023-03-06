@@ -102,7 +102,7 @@ const VisualizationHistogram = (props) => {
 			
 				<span className='histogram-infos__item'>mean: {d3.mean(data).toFixed(2)}</span>
 				<span className='histogram-infos__item'>median: {d3.median(data).toFixed(2)}</span>
-				<span className='histogram-infos__item'>deviation: {d3.deviation(data).toFixed(2)}</span>
+				<span className='histogram-infos__item'>deviation: {(data.length > 3) && d3.deviation(data).toFixed(2)}</span>
 
 			</p>
 			
