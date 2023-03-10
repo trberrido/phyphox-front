@@ -72,12 +72,13 @@ const VisualizationGraph = (props) => {
 	const colors = props.colors;
 	const dimensions = props.dimensions;
 	const ref = useRef(null);
-	const coloredFits = lines.map((value) => (
+	const coloredFits = Object.keys(fits).length ? lines.map((line) => (
 		{
-			coordinates: fits[value.idline],
-			color: value.colorline
+			coordinates: fits[line.idline],
+			color: line.colorline
 		}
-	));
+	)) : null;
+	
 	const linesMinMax = useMemo(() => {
 	
 		const everyLines = [...measures, ...Object.values(fits)];
@@ -198,8 +199,8 @@ const VisualizationGraph = (props) => {
 								/>
 							))
 						}
-						{		
-							Object.entries(coloredFits).map(([fitname, fit], index) => (
+						{	coloredFits ? 
+							Object.entries(coloredFits).map(([fitname, fit]) => (
 								<Path 
 									key={fitname}
 									xScale={scales.x}
@@ -208,6 +209,7 @@ const VisualizationGraph = (props) => {
 									color={fit.color}
 								/>
 							))
+							: null
 						}
 					</g>
 				
