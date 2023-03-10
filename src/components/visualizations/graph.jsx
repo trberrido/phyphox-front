@@ -78,7 +78,7 @@ const VisualizationGraph = (props) => {
 			color: line.colorline
 		}
 	)) : null;
-	
+	console.log(coloredFits)
 	const linesMinMax = useMemo(() => {
 	
 		const everyLines = [...measures, ...Object.values(fits)];
@@ -201,6 +201,7 @@ const VisualizationGraph = (props) => {
 						}
 						{	coloredFits ? 
 							Object.entries(coloredFits).map(([fitname, fit]) => (
+								fit.coordinates ? 
 								<Path 
 									key={fitname}
 									xScale={scales.x}
@@ -208,6 +209,8 @@ const VisualizationGraph = (props) => {
 									coordinates={fit.coordinates}
 									color={fit.color}
 								/>
+								:
+								null
 							))
 							: null
 						}
