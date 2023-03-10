@@ -78,7 +78,7 @@ const VisualizationGraph = (props) => {
 			color: line.colorline
 		}
 	)) : null;
-	console.log(coloredFits)
+
 	const linesMinMax = useMemo(() => {
 	
 		const everyLines = [...measures, ...Object.values(fits)];

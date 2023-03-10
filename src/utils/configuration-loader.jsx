@@ -1,5 +1,7 @@
 const lineTemplate = {
-	style: 'Solid'
+	style: 'Solid',
+	colorline: '#ffffff',
+	idline: ''
 }
 
 const fileTemplate = {
