@@ -45,22 +45,22 @@ const router = createBrowserRouter([
 		errorElement: <PageError404 />,
 		children: [
 			{path: '', element: <PageHome />},
-			{path: '/previous', element: <PagePreviousXPs />},
-			{path: '/login',
-				loader: userExistLoader, 
+			{path: 'previous', element: <PagePreviousXPs />},
+			{path: 'login',
+				loader: userExistLoader,
 				element: <PageLogin />},
-			{path: '/experiment/:experimentID',
+			{path: 'experiment/:experimentID',
 				element: <PageExperiment />},
-			{path: '/administration', element: <ProtectedAuth><PageAdministration /></ProtectedAuth>},
-			{path: '/administration/create_configuration',
+			{path: 'administration', element: <ProtectedAuth><PageAdministration /></ProtectedAuth>},
+			{path: 'administration/create_configuration',
 				loader: configurationDefault,
 				element: <ProtectedAuth><ProtectedAppListening><PageConfigurationCreate /></ProtectedAppListening></ProtectedAuth>},
-			{path: '/administration/edit_configuration/:configurationID',
+			{path: 'administration/edit_configuration/:configurationID',
 				loader: configurationLoader,
 				element: <ProtectedAuth><ProtectedAppListening><PageConfigurationEdit /></ProtectedAppListening></ProtectedAuth>
 			}
 		]
 	}
-]);
+], { basename: window.SUBDIR });
 
 export default router;

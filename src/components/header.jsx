@@ -23,7 +23,7 @@ const Header = () => {
 
 	const handleLogOutButton = () => {
 
-		fetch('https://' + window.location.hostname + '/api/user/', {
+		fetch(window.BASE + '/api/user/', {
 			method: 'PUT',
 			credentials: 'include'
 		})

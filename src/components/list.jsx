@@ -113,7 +113,7 @@ function List(props) {
 
 	useEffect(() => {
 		if (!list.isLoaded){
-			fetch ('https://' + window.location.hostname + '/api/' + props.collection, {method: 'GET'})
+			fetch(window.BASE + '/api/' + props.collection, {method: 'GET'})
 			.then (res => res.json())
 			.then (
 				(result) => {

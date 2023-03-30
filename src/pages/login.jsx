@@ -43,7 +43,7 @@ const PageLogin = () => {
 		e.preventDefault();
 		setFormState({...formState, isDisabled: true});
 
-		fetch('https://' + window.location.hostname + '/api/user/', 
+		fetch(window.BASE + '/api/user/',
 			{
 				headers: {'Content-Type': 'application/json'},
 				method: (formState.doesUserExist ? 'PUT' : 'POST'),

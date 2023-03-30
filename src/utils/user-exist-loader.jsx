@@ -1,6 +1,6 @@
 const userExistLoader = async () => {
 	const doesUserExist = await fetch(
-		'https://' + window.location.hostname + '/api/user/',
+		window.BASE + '/api/user/',
 		{ method: 'GET' }
 	)
 	.then((response) => response.json())

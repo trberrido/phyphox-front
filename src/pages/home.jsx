@@ -17,7 +17,7 @@ const PageHome = () => {
 		<Experiment
 			title={isAppListening ? 'Ongoing experience, data collection in progress' : 'Last experiment'}
 			isOnGoingExperiment={isAppListening}
-			fetchURL={'https://' + window.location.hostname + '/api/experiments/' + (isAppListening ? 'current' : 'last')} />
+			fetchURL={window.BASE + '/api/experiments/' + (isAppListening ? 'current' : 'last')} />
 	</>);
 	
 }

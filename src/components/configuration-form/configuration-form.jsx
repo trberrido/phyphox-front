@@ -116,7 +116,7 @@ const ConfigurationForm = (props) => {
 		})
 		const headers = new Headers();
 		headers.append('Content-Type', 'application/json');
-		fetch('https://' + window.location.hostname + '/api/configurations' + ressource, {
+		fetch(window.BASE + '/api/configurations' + ressource, {
 			method: props.method,
 			credentials: 'include',
 			headers: headers,
@@ -133,7 +133,7 @@ const ConfigurationForm = (props) => {
 				} else {
 					const configuration = result.filename;
 					const dateID = Date.now()
-					fetch('https://' + window.location.hostname + '/api/app/state.json', {
+					fetch(window.BASE + '/api/app/state.json', {
 						method: 'PUT',
 						credentials: 'include',
 						body: JSON.stringify({isListening: true, currentConfiguration: configuration, startedAt: dateID})

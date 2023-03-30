@@ -24,7 +24,7 @@ const visualizationTemplate = {
 */
 
 const configurationLoader = async ({ params }) => {
-	const configuration = await fetch('https://' + window.location.hostname + '/api/configurations/' + params.configurationID + '.json',
+	const configuration = await fetch(window.BASE + '/api/configurations/' + params.configurationID + '.json',
 		{credentials: 'include', method: 'GET'})
 		.then((response) => response.json())
 		.then((result) => ( result ))

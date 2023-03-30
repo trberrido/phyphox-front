@@ -115,7 +115,7 @@ const ButtonStopListening = (props) => {
 		if (props.handleClick)
 			props.handleClick();
 		
-		fetch('https://' + window.location.hostname + '/api/app/state.json', {
+		fetch(window.BASE + '/api/app/state.json', {
 			method: 'PUT',
 			credentials: 'include',
 			body: JSON.stringify({isListening: false, currentConfiguration: "", startedAt: 0})

@@ -10,7 +10,7 @@ const App = () => {
 	console.log('Les dieux ne sont que des artistes. Une belle lueur sur un incendie, un beau gazon sur un champ de bataille, voilà pour eux la justice.');
 	return (
 		<React.StrictMode>
-			<RouterProvider router={router} />	
+			<RouterProvider router={router} />
 		</React.StrictMode>
 	);
 }
