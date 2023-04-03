@@ -8,11 +8,11 @@ import { Menu, Burger } from './menu.jsx';
 import { ButtonPrivate } from './button.jsx';
 
 const Header = () => {
-	
+
 	const setIsAuthentificated = useContext(AuthentificationContext).setIsUserAuthentificated;
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	let navigate = useNavigate();
-	
+
 	const handleBurgerClick = () => {
 		setIsMenuOpen(!isMenuOpen);
 	}
@@ -39,7 +39,7 @@ const Header = () => {
 				<div>
 					<Burger isMenuOpen={isMenuOpen} onBurgerClick={handleBurgerClick} />
 					<h1 className='header__title'>
-						<Link onClick={() => {setIsMenuOpen(false)}} className='header__link' to='/'>Phy<span className="header__link--highlight">phox.</span>Viz</Link>
+						<Link onClick={() => {setIsMenuOpen(false)}} className='header__link' to='/'>Data<span className="header__link--highlight">.Viz</span></Link>
 					</h1>
 				</div>
 				<ButtonPrivate type='important' text='Log out' handleClick={handleLogOutButton} buttonClassName='header__button-logout' />

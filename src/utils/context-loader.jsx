@@ -5,7 +5,7 @@ const getAuthentificationStatus = async () => {
 	})
 	.then((response) => { return response.json() })
 	.then(
-		(result) => { 
+		(result) => {
 			return result
 		},
 		() => { return false }
