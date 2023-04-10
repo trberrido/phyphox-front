@@ -68,7 +68,7 @@ const Visualization = (props) => {
 	const [isFullscreen, setIsFullscreen] = useState(false);
 	const ref = useRef(null);
 
-	const [dimensions, setDimensions] = useState({width: 0, height: window.innerHeight * (isFullscreen ? .8 : .6)});
+	const [dimensions, setDimensions] = useState({width: 0, height: window.innerHeight * (isFullscreen ? .9 : .7)});
 
 	const toggleFullscreen = () => {
 		setIsFullscreen(!isFullscreen);
@@ -98,7 +98,7 @@ const Visualization = (props) => {
 				if (entry.contentRect.width !== dimensions.width){
 					setDimensions({
 						width: entry.contentRect.width,
-						height: window.innerHeight * (isFullscreen ? .8 : .6)
+						height: window.innerHeight * (isFullscreen ? .9 : .7)
 					});
 				}
 			}

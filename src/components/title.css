@@ -24,7 +24,7 @@
 	height: .4rem;
 }
 
-@media screen and (max-width: 70rem){
+@media screen and (max-width: 80rem){
 	.title__content {
 		font-size: var(--xlarge);
 		line-height:var(--xlarge);

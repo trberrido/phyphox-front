@@ -148,12 +148,15 @@
 }
 
 .graph-legende__colorsquare {
-	height: .5rem;
-	width: .5rem;
+	height: 1rem;
+	width: 1rem;
 	margin-right: var(--spacing-regular);
 }
 
-.graph-legende__text { margin: 0}
+.graph-legende__text {
+	margin: 0;
+	font-size: 2rem;
+}
 
 .histogram-infos {
 	margin: var(--spacing-small) 0 0 0
@@ -162,7 +165,7 @@
 	margin-right: var(--spacing-large);
 }
 
-@media screen and (max-width: 70rem){
+@media screen and (max-width: 80rem){
 	.visualization-number__output {
 		font-size: 5rem;
 	}

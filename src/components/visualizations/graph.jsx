@@ -11,14 +11,14 @@ const Legendes = (props) => {
 			props.data.map((element, index) => {
 				if (element.idline){
 					return (
-						
+
 						<div
 							className='graph-legende'
 							key={element.idline + '_' + index.toString()}>
 							<div style={{background:element.colorline}} className='graph-legende__colorsquare'></div>
 							<p className='graph-legende__text'>{element.idline}</p>
 						</div>
-						
+
 					)
 				}
 				return null;
@@ -33,6 +33,7 @@ const Path = (props) => {
 		<path
 			fill='none'
 			stroke={props.color}
+			strokeWidth={3}
 			d={
 			props.coordinates.x.map((spot, index) => (
 					(!index ? 'M ' : ' L ') +  props.xScale(spot) + ' ' + (props.yScale(props.coordinates.y[index])) 
@@ -54,7 +55,7 @@ const Plots = (props) => {
 					key={index.toString()}
 					cx={props.xScale(plot)}
 					cy={props.yScale(props.plots.y[index])}
-					r={1}
+					r={3}
 					fill='currentColor' />
 			))
 		}
@@ -67,7 +68,7 @@ const VisualizationGraph = (props) => {
 
 	const margins = props.margins;
 	const lines = props.lines;
-	const fits = props.data.fits ? props.data.fits : null; 
+	const fits = props.data.fits ? props.data.fits : null;
 	const measures = props.data.measures ? props.data.measures : null;
 	const colors = props.colors;
 	const dimensions = props.dimensions;
@@ -80,7 +81,7 @@ const VisualizationGraph = (props) => {
 	)) : null;
 
 	const linesMinMax = useMemo(() => {
-	
+
 		const everyLines = [...measures, ...Object.values(fits)];
 		const everyMinMax = everyLines.map((line) => {
 			return ({
@@ -159,7 +160,7 @@ const VisualizationGraph = (props) => {
 		})
 
 		d3.select(ref.current).call(zoom)
-		
+
 	//	return () => { zoom.on('zoom', null) }
 
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -168,7 +169,6 @@ const VisualizationGraph = (props) => {
 	return (
 	<>
 
-	
 			<svg width={dimensions.width} height={dimensions.height} ref={ref} >
 				<rect
 					transform={`translate(${margins.left}, ${margins.top})`}
@@ -189,9 +189,9 @@ const VisualizationGraph = (props) => {
 						width={dimensions.width - (margins.left + margins.right)}
 						height={dimensions.height - (margins.top + margins.bottom)}
 						transform={`translate(${margins.left}, ${margins.top})`} >
-						{		
+						{
 							measures.map((measure, index) => (
-								<Plots 
+								<Plots
 									key={index.toString()}
 									xScale={scales.x}
 									yScale={scales.y}
@@ -199,10 +199,10 @@ const VisualizationGraph = (props) => {
 								/>
 							))
 						}
-						{	coloredFits ? 
+						{	coloredFits ?
 							Object.entries(coloredFits).map(([fitname, fit]) => (
-								fit.coordinates ? 
-								<Path 
+								fit.coordinates ?
+								<Path
 									key={fitname}
 									xScale={scales.x}
 									yScale={scales.y}
@@ -215,8 +215,6 @@ const VisualizationGraph = (props) => {
 							: null
 						}
 					</g>
-				
-				
 
 				<AxisY
 					yScale={scales.y}
@@ -243,7 +241,7 @@ const VisualizationGraph = (props) => {
 			<Legendes data={lines} />
 
 		</>
-	
+
 	);
 
 }

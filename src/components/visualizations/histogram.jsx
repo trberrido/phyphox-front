@@ -52,7 +52,6 @@ const VisualizationHistogram = (props) => {
 			.scaleLinear()
 			.range([0, dimensions.width - (margins.left + margins.right)])
 			.domain([min, max])
-			.nice()
 	}, [data, dimensions, margins]);
 
 	return (

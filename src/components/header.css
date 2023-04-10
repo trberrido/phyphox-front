@@ -29,7 +29,7 @@
 	vertical-align: middle;
 }
 
-@media screen and (max-width: 70rem){
+@media screen and (max-width: 80rem){
 	.header {
 		padding: var(--spacing-regular);
 	}
