@@ -24,7 +24,7 @@
 	bottom: 0;
 	right: 0;
 	z-index: 9;
-	height: calc(100vh - 5 * var(--spacing-large));
+	min-height: 100vh;
 	padding: var(--spacing-large);
 }
 
