@@ -131,18 +131,7 @@ const ConfigurationForm = (props) => {
 						error: result.error
 					});
 				} else {
-					const configuration = result.filename;
-					const dateID = Date.now()
-					fetch(window.BASE + '/api/app/state.json', {
-						method: 'PUT',
-						credentials: 'include',
-						body: JSON.stringify({isListening: true, currentConfiguration: configuration, startedAt: dateID})
-					})
-					.then((response) => response.json())
-					.then((result) => {
-						setIsAppListening(true);
-						navigate('/')
-					})
+					navigate('/administration')
 				}
 			},
 			(error) => {
@@ -296,7 +285,7 @@ const ConfigurationForm = (props) => {
 
 			<div className='configuration-form__commands'>
 				<Button icon='library_add' text='Add a new visualization' handleClick={visualizationFormAdd} />
-				<Submit text='Start to listen datas' disabled={formState.isDisabled} />
+				<Submit text='Save' disabled={formState.isDisabled} />
 			</div>
 
 		</form>
