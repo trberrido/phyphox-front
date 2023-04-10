@@ -13,12 +13,12 @@ const PageAdministration = () => {
 			<Title
 				header='Hello Admin, what do you want to do ?'
 				content='Management space'/>
-			
+
 			<Spacer size='small' />
-			
+
 			<p>Current state : the application is {isAppListening ? 'on 🐵' : 'off 🙈'}.</p>
 
-			{isAppListening ? 
+			{isAppListening ?
 				<ButtonStopListening /> :
 				<LinkPrivate replace to={'/administration/create_configuration'} type='important' text='Create new configuration'/>
 			}
@@ -31,6 +31,7 @@ const PageAdministration = () => {
 				collection='configurations'
 				actionName='Edit'
 				actionURL='/administration/edit_configuration/'
+				optionRunnable={true}
 				optionDuplicate={true}
 			/>
 		</>

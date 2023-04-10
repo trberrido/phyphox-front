@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Message from './message.jsx';
 import Loader from './loader.jsx';
 
-import { AuthentificationContext } from '../context.jsx';
+import { AuthentificationContext, AppStateContext } from '../context.jsx';
 
 import './list.css';
 
@@ -33,7 +33,20 @@ const ListItem = (props) => {
 			>
 				{props.actionName}
 			</Link>
-			
+
+			{
+				props.isRunnable ?
+				<a
+					onClick={props.isRunnable}
+					data-filename={props.item.filename}
+					className={'file-list__link' + (isDisabled ? ' file-list__link--disabled' : '')}
+					href={'https://' + window.location.hostname + '/api/' + props.collection + '/' + props.item.filename }
+				>
+					Run
+				</a>
+				: null
+			}
+
 			{props.isDuplicable ?
 				<a
 					className={'file-list__link' + (isDisabled ? ' file-list__link--disabled' : '')}
@@ -43,7 +56,7 @@ const ListItem = (props) => {
 					Duplicate
 				</a>
 				: null }
-			
+
 			{props.isDownloadable ?
 				<a
 					className={'file-list__link' + (isDisabled ? ' file-list__link--disabled' : '')}
@@ -71,11 +84,36 @@ const ListItem = (props) => {
 
 function List(props) {
 
+	const navigate = useNavigate();
+	const setIsAppListening = useContext(AppStateContext).setIsAppListening;
+
 	const [list, setList] = useState({
 		error: null,
 		isLoaded: false,
 		items: []
 	});
+
+	const run = (e) => {
+
+		e.preventDefault();
+		const dateID = Date.now()
+		const configuration = e.currentTarget.dataset.filename;
+		fetch(window.BASE + '/api/app/state.json', {
+			method: 'PUT',
+			credentials: 'include',
+			body: JSON.stringify({isListening: true, currentConfiguration: configuration, startedAt: dateID})
+		})
+		.then((response) => response.json())
+		.then((result) => {
+			if (!result.hasOwnProperty('error')){
+				setIsAppListening(true);
+				navigate('/')
+			} else {
+				setList({...list, error: result.error})
+			}
+		})
+
+	}
 
 	const duplicateItem = (e) => {
 
@@ -146,6 +184,7 @@ function List(props) {
 						<ListItem
 							isDownloadable={props.isDownloadable}
 							isDuplicable={props.optionDuplicate ? duplicateItem : false}
+							isRunnable={props.optionRunnable ? run : false}
 							downloadURL={'https://' + window.location.hostname + '/api/' + props.collection + '/' + item.filename}
 							key={item.id}
 							item={item}
