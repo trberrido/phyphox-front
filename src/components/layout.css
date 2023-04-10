@@ -14,7 +14,7 @@
 
 .main-content {
 	padding: calc(3 * var(--spacing-large)) 0;
-	width: 50%;
+	width: 75%;
 	margin: auto;
 	min-height: calc(100vh - 21rem);
 }

@@ -71,14 +71,14 @@
 .visualization-number__output {
 	color: var(--text-color-variant);
 	font-weight: 700;
-	font-size: 5rem;
+	font-size: 10rem;
 	margin: 0;
 }
 
 .visualizations-number__nodata {
 	font-size: 1rem;
 	vertical-align: middle;
-	animation: blinker var(--delay-long) infinite alternate; 
+	animation: blinker var(--delay-long) infinite alternate;
 }
 
 .visualization-number__unit {
@@ -160,4 +160,10 @@
 }
 .histogram-infos__item {
 	margin-right: var(--spacing-large);
+}
+
+@media screen and (max-width: 70rem){
+	.visualization-number__output {
+		font-size: 5rem;
+	}
 }

@@ -55,8 +55,8 @@ const Visualization = (props) => {
 	const margins = {
 		top: 10,
 		right: 50,
-		bottom: 50,
-		left: 75
+		bottom: 75,
+		left: 175
 	}
 	const colors = {
 		text: '#ADADAD',
@@ -68,7 +68,7 @@ const Visualization = (props) => {
 	const [isFullscreen, setIsFullscreen] = useState(false);
 	const ref = useRef(null);
 
-	const [dimensions, setDimensions] = useState({width: 0, height: window.innerHeight * (isFullscreen ? .8 : .5)});
+	const [dimensions, setDimensions] = useState({width: 0, height: window.innerHeight * (isFullscreen ? .8 : .6)});
 
 	const toggleFullscreen = () => {
 		setIsFullscreen(!isFullscreen);
@@ -98,7 +98,7 @@ const Visualization = (props) => {
 				if (entry.contentRect.width !== dimensions.width){
 					setDimensions({
 						width: entry.contentRect.width,
-						height: window.innerHeight * (isFullscreen ? .7 : .5)
+						height: window.innerHeight * (isFullscreen ? .8 : .6)
 					});
 				}
 			}

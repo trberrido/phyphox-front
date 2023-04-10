@@ -8,11 +8,12 @@ import { AxisX, AxisY } from "./axis";
 const Bar = (props) => {
 
 	const maxHeight = props.dimensions.height - (props.margins.top + props.margins.bottom);
-	
+
 	return (
 		<rect
 			stroke='black'
-			fill='grey'
+			fill='white'
+			opacity={.8}
 			x={props.xScale(props.bucket.x0)}
 			width={props.xScale(props.bucket.x1) - props.xScale(props.bucket.x0)}
 			y={props.yScale(props.bucket.length)}
@@ -23,14 +24,17 @@ const Bar = (props) => {
 
 
 const VisualizationHistogram = (props) => {
-	
+
 	const colors = props.colors;
 	const margins = props.margins;
 	const data = props.data;
 	const dimensions = props.dimensions;
 
 	const buckets = useMemo(() => {
-		const bucketor = d3.bin();
+		const binCount = 10;
+		const [min, max] = d3.extent(data);
+		const thresholds = d3.range(min, max, (max - min) / binCount);
+		const bucketor = d3.bin().thresholds(thresholds)
 		return bucketor(data);
 	}, [data]);
 
@@ -43,13 +47,14 @@ const VisualizationHistogram = (props) => {
 	}, [buckets, dimensions, margins]);
 
 	const xScale = useMemo(() => {
+		const [min, max] = d3.extent(data);
 		return d3
 			.scaleLinear()
 			.range([0, dimensions.width - (margins.left + margins.right)])
-			.domain([Math.min(...data), Math.max(...data)])
+			.domain([min, max])
 			.nice()
 	}, [data, dimensions, margins]);
-	
+
 	return (
 		<>
 			<svg width={dimensions.width} height={dimensions.height} >
@@ -76,6 +81,7 @@ const VisualizationHistogram = (props) => {
 					}
 				</g>
 				<AxisY
+					type='histogram'
 					yScale={yScale}
 					dimensions={dimensions}
 					margins={margins}
@@ -97,15 +103,14 @@ const VisualizationHistogram = (props) => {
 				/>
 			</svg>
 
-	
+
 			<p className='histogram-infos'>
-			
+
 				<span className='histogram-infos__item'>mean: {d3.mean(data).toFixed(2)}</span>
 				<span className='histogram-infos__item'>median: {d3.median(data).toFixed(2)}</span>
 				<span className='histogram-infos__item'>deviation: {data.length > 1 ? d3.deviation(data).toFixed(2) : ' - '}</span>
 
 			</p>
-			
 
 		</>
 	);

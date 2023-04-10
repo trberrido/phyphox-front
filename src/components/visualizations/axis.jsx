@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import * as d3 from "d3";
 
 const AxisY = (props) => {
 
@@ -6,17 +7,25 @@ const AxisY = (props) => {
 	const margins = props.margins;
 
 	const ticks = useMemo(() => {
+		const scientificNotation = d3.format('.1e');
 		return props.yScale
-						.ticks()
-						.map(value => ({
-							value, yOffset: props.yScale(value)
-						}))
+						.ticks(5)
+						.filter(tick => {
+							return (
+								!props.type
+								|| (props.type && props.type === 'histogram' && Number.isInteger(tick))
+							)
+						})
+						.map((value) => {
+							const displayedValue = value < 999 ? value : scientificNotation(value)
+							return ({value: displayedValue, yOffset: props.yScale(value)})
+						})
 	}, [props]);
 
 	return (
 		<svg >
 			{
-				props.label ? 
+				props.label ?
 					<text
 						fill='currentColor'
 						transform='rotate(-90)'
@@ -40,8 +49,8 @@ const AxisY = (props) => {
 					>
 						<line x1={margins.left} x2={dimensions.width - margins.right} stroke={props.colors.stick} />
 						<text
-							transform={`translate(${margins.left - 10}, 2)`}
-							fontSize='10'
+							transform={`translate(${margins.left - 10}, 20)`}
+							fontSize='40'
 							textAnchor='end'
 							fill='currentColor'
 						>
@@ -62,14 +71,14 @@ const AxisX = (props) => {
 	const margins = props.margins;
 
 	const ticks = useMemo(() => {
-		return props.xScale.ticks()
+		return props.xScale.ticks(5)
 			.map(value => ({ value, xOffset: props.xScale(value)}))
 	}, [props]);
 
 	return (
 		<svg >
 		{
-				props.label ? 
+				props.label ?
 					<text
 						fill='currentColor'
 						textAnchor='end'
@@ -82,7 +91,7 @@ const AxisX = (props) => {
 			<path d={[
 					'M', margins.left, (dimensions.height - margins.bottom),
 					'h', dimensions.width - (margins.left + margins.right)
-				].join(' ')} 
+				].join(' ')}
 				fill='none' stroke='currentColor' />
 				{
 					ticks.map(({value, xOffset}, index) => (
@@ -96,8 +105,8 @@ const AxisX = (props) => {
 								stroke={props.colors.stick} /> 
 
 							<text
-								transform={`translate(0,${dimensions.height + margins.top - margins.bottom + 10})`}
-								fontSize='10'
+								transform={`translate(0,${dimensions.height + margins.top - margins.bottom + 40})`}
+								fontSize='40'
 								textAnchor='middle'
 								fill='currentColor'
 							>
