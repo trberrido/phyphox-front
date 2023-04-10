@@ -1,5 +1,5 @@
 import React from 'react';
-import {ButtonStopListening} from './button.jsx';
+import {ButtonStopListening, ButtonRestart} from './button.jsx';
 import {Link} from 'react-router-dom';
 
 import './menu.css';
@@ -47,6 +47,7 @@ const Menu = (props) => {
 				))}
 				</ul>
 			</nav>
+			<ButtonRestart handleClick={props.onLinkClick} lightBackground={true} /><br />
 			<ButtonStopListening handleClick={props.onLinkClick} lightBackground={true} />
 			</div>
 		</div>

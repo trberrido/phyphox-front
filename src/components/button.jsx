@@ -30,7 +30,7 @@ const Button = (props) => {
 			className={classes}
 			value={props.text} />
 	);
-	
+
 }
 
 const ButtonIcon = (props) => {
@@ -47,7 +47,7 @@ const ButtonIcon = (props) => {
 const ButtonPrivate = (props) => {
 	const isAuthentificated = useContext(AuthentificationContext).isUserAuthentificated;
 	return (
-		isAuthentificated ? 
+		isAuthentificated ?
 			<Button
 				disabled={props.disabled}
 				type={props.type}
@@ -71,7 +71,7 @@ const ButtonAskingConfirmation = (props) => {
 	const cancelAction = () => {
 		setIsFirstStep(true);
 	}
-	
+
 	const FirstStepButton = () => {
 		return (
 			<ButtonPrivate
@@ -97,13 +97,63 @@ const ButtonAskingConfirmation = (props) => {
 		</>)
 	}
 
-	return (		
+	return (
 		isFirstStep ?
 			<FirstStepButton />
 			:
 			<SecondStepButton />
 	);
 
+}
+
+const ButtonRestart = (props) => {
+	const {isAppListening, setIsAppListening} = useContext(AppStateContext);
+
+	const restart = () => {
+		if (props.handleClick)
+			props.handleClick();
+
+		fetch(window.BASE + '/api/app/state.json', {
+			method: 'PUT',
+			credentials: 'include',
+			body: JSON.stringify({isListening: false, currentConfiguration: "", startedAt: 0})
+		})
+		.then((response) => response.json())
+		.then((result) => {
+
+			fetch(window.BASE + '/api/configurations/last')
+			.then((response) => response.json())
+			.then((result) => {
+				console.log(result)
+				const dateID = Date.now()
+				const configuration = result.id + '.json';
+
+				fetch(window.BASE + '/api/app/state.json', {
+					method: 'PUT',
+					credentials: 'include',
+					body: JSON.stringify({isListening: true, currentConfiguration: configuration, startedAt: dateID})
+				})
+				.then((response) => response.json())
+				.then((result) => {
+					if (!result.hasOwnProperty('error')){
+						setIsAppListening(true);
+					}
+				})
+			})
+
+		})
+	}
+
+	return (
+		isAppListening ?
+			<ButtonAskingConfirmation
+				text='Restart'
+				confirmedAction={restart}
+				background={props.lightBackground ? 'light' : 'dark' }
+			/>
+		:
+		null
+	);
 }
 
 const ButtonStopListening = (props) => {
@@ -114,7 +164,7 @@ const ButtonStopListening = (props) => {
 
 		if (props.handleClick)
 			props.handleClick();
-		
+
 		fetch(window.BASE + '/api/app/state.json', {
 			method: 'PUT',
 			credentials: 'include',
@@ -141,16 +191,17 @@ const ButtonStopListening = (props) => {
 
 const LinkPrivate = (props) => {
 	const isAuthentificated = useContext(AuthentificationContext).isUserAuthentificated;
-	
+
 	return (
 		isAuthentificated ? <Link to={props.to} type={props.type} className={'button button--important'}>{props.text}</Link> : null
 	);
 }
 
-export { 
-	Button, 
+export {
+	Button,
 	ButtonPrivate,
 	ButtonStopListening,
+	ButtonRestart,
 	ButtonIcon,
 	LinkPrivate,
 	ButtonAskingConfirmation
