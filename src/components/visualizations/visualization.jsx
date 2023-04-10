@@ -11,12 +11,12 @@ import './visualization.css';
 import { ButtonIcon } from '../button';
 
 const WaitingData = (props) => {
-		
+
 	if (props.isOnGoingExperiment)
 		return <Loader />
-	else 
+	else
 		return <Message message='No data to display.' />
-	
+
 }
 
 const VisualizationFooter = (props) => {
@@ -51,7 +51,7 @@ const VisualizationFooter = (props) => {
 }
 
 const Visualization = (props) => {
-	
+
 	const margins = {
 		top: 10,
 		right: 50,
@@ -65,7 +65,7 @@ const Visualization = (props) => {
 	}
 	const visualization = props.data;
 
-	const [isFullscreen, setIsFullscreen] = useState(false); 
+	const [isFullscreen, setIsFullscreen] = useState(false);
 	const ref = useRef(null);
 
 	const [dimensions, setDimensions] = useState({width: 0, height: window.innerHeight * (isFullscreen ? .8 : .5)});
@@ -80,7 +80,7 @@ const Visualization = (props) => {
 			if (e.key === 'Escape')
 				toggleFullscreen()
 		}
-		
+
 		if (isFullscreen)
 			window.addEventListener('keyup', captureEscape);
 
@@ -105,17 +105,17 @@ const Visualization = (props) => {
 		);
 		resizeObs.observe(refWrapper);
 		return () => resizeObs.unobserve(refWrapper)
-		
+
 	}, [dimensions, isFullscreen, ref])
 
 	return (
 
 		<article className={'visualization' + (isFullscreen ? ' visualization--fullscreen' : '')} >
-		
+
 			<div className='visualization__frame'>
 
 				{
-					isFullscreen ? 
+					isFullscreen ?
 						<ButtonIcon
 							handleClick={toggleFullscreen}
 							classes={'visualization__close-button'}
@@ -125,7 +125,7 @@ const Visualization = (props) => {
 				}
 
 				<div className='visualization__inner-padding'>
-					
+
 					<div className='visualization__header'>
 						<h2 className='visualization__title'>{visualization.title}</h2>
 						<p className='visualization__participants-number'>
@@ -138,7 +138,7 @@ const Visualization = (props) => {
 						{
 							(dimensions.width === 0 || visualization.displayedData.length === 0)  ?
 								<WaitingData isOnGoingExperiment={props.isOnGoingExperiment} />
-							:		
+							:
 								{
 
 									'Single Number':<VisualizationSingleNumber
@@ -161,12 +161,11 @@ const Visualization = (props) => {
 														data={visualization.displayedData}
 														lines={visualization.lines}
 														margins={margins} />
-								}[visualization.type]		
+								}[visualization.type]
 						}
 
-						
 					</div>
-					
+
 				</div>
 
 				{

@@ -10,7 +10,7 @@ import './list.css';
 
 const ListItem = (props) => {
 	const isAuthentificated = useContext(AuthentificationContext).isUserAuthentificated;
-	
+
 	const [isDisabled, setIsDisabled] = useState(false);
 
 	const handleClick = (e) => {
@@ -24,7 +24,7 @@ const ListItem = (props) => {
 			className={'file-list__item' + (isDisabled ? ' file-list__item--deleting' : '')}
 			data-filename={props.item.filename}
 		>
-			<span>{props.item.id}</span><br />
+			<span>{props.item.title}</span><br />
 
 			<Link
 				className={'file-list__link' + (isDisabled ? ' file-list__link--disabled' : '')}
@@ -54,15 +54,15 @@ const ListItem = (props) => {
 					download (json file, {Math.round(props.item.filesize / 1024)} KB)
 				</a>
 				: null }
-			
-			{isAuthentificated ? 
-				<a	
+
+			{isAuthentificated ?
+				<a
 					className={'file-list__link' + (isDisabled ? ' file-list__link--disabled' : '')}
 					target='_blank' rel='noreferrer'
 					onClick={handleClick}
 					href={'https://' + window.location.hostname + '/api/' + props.collection + '/' + props.item.filename}>
 						delete
-					</a> 
+					</a>
 				: null}
 		</li>
 	);
@@ -81,7 +81,7 @@ function List(props) {
 
 		e.preventDefault();
 		const URL = e.currentTarget.href;
-		fetch(URL, 
+		fetch(URL,
 			{
 				credentials : 'include',
 				method: 'POST'
@@ -92,7 +92,7 @@ function List(props) {
 					setList({...list, items: result});
 				}
 			})
-			
+
 	}
 
 	const deleteItem = (e) => {
@@ -143,7 +143,7 @@ function List(props) {
 							isDownloadable={props.isDownloadable}
 							isDuplicable={props.optionDuplicate ? duplicateItem : false}
 							downloadURL={'https://' + window.location.hostname + '/api/' + props.collection + '/' + item.filename}
-							key={item.filename}
+							key={item.id}
 							item={item}
 							collection={props.collection}
 							actionName={props.actionName}

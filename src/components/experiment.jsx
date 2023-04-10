@@ -47,7 +47,7 @@ const Experiment = (props) => {
 			.then(
 				(result) => {
 					if (result.hasOwnProperty('error')){
-						setExperiment ({...experiment,	
+						setExperiment ({...experiment,
 							isLoaded: true,
 							error: result.error
 						})
@@ -62,7 +62,7 @@ const Experiment = (props) => {
 							})
 						}
 					}
-					
+
 				},
 				(error) => {
 					setExperiment ({...experiment,
@@ -75,7 +75,7 @@ const Experiment = (props) => {
 
 		if (props.isOnGoingExperiment){
 			const interval = setInterval(
-				fetchExperiment, 
+				fetchExperiment,
 				1000,
 				props.fetchURL
 			);

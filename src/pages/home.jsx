@@ -19,7 +19,7 @@ const PageHome = () => {
 			isOnGoingExperiment={isAppListening}
 			fetchURL={window.BASE + '/api/experiments/' + (isAppListening ? 'current' : 'last')} />
 	</>);
-	
+
 }
 
 export default PageHome;
