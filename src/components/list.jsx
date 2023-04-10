@@ -89,7 +89,11 @@ function List(props) {
 			.then((response) => response.json())
 			.then((result) => {
 				if (!result.hasOwnProperty('error')){
-					setList({...list, items: result});
+					const newItemsList = structuredClone(list.items);
+					newItemsList.unshift(result)
+					setList({...list, items: newItemsList});
+				} else {
+					setList({...list, error: result.error})
 				}
 			})
 

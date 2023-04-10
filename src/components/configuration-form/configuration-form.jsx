@@ -56,12 +56,12 @@ const ConfigurationFormHeader = (props) => {
 
 
 const ConfigurationFormBody = (props) => {
-	const isSingle = props.visualizations.length < 2 ? true : false; 
+	const isSingle = props.visualizations.length < 2 ? true : false;
 	return (<>
 
 		<h2 className='configuration-form__title'>List of visualizations</h2>
 		<div className='configuration-form__visualizations-list'>
-			
+
 			{props.visualizations.map((visualization, index) => (
 				<VisualizationForm
 					key={index.toString() + '-' + visualization.type}
@@ -69,7 +69,7 @@ const ConfigurationFormBody = (props) => {
 					isSingle={isSingle}
 					type={visualization.type}
 					visualization={visualization}
-					
+
 					extraVariableAdd={props.extraVariableAdd}
 					extraVariableRemove={props.extraVariableRemove}
 					extraVariableUpdate={props.extraVariableUpdate}
@@ -159,7 +159,7 @@ const ConfigurationForm = (props) => {
 		copy[e.target.name] = e.target.value;
 		setProject(copy);
 	}
-	
+
 	const fileInputAdd = (e) => {
 		const file = e.currentTarget.files[0];
 		const copy = structuredClone(project);
@@ -215,7 +215,7 @@ const ConfigurationForm = (props) => {
 		copy.visualizations.splice(index, 1);
 		setProject(copy);
 	}
-	
+
 	const visualizationFormUpdate = (e) => {
 		const index = e.currentTarget.closest('.configuration-visualization').dataset.index;
 		const copy = structuredClone(project);
@@ -234,7 +234,7 @@ const ConfigurationForm = (props) => {
 		const visualizationIndex = e.currentTarget.closest('.configuration-visualization').dataset.index;
 		const newLines = project.visualizations[visualizationIndex].lines.concat({...lineTemplate});
 		const copy = structuredClone(project);
-		copy.visualizations[visualizationIndex].lines = newLines;		
+		copy.visualizations[visualizationIndex].lines = newLines;
 		setProject(copy);
 	}
 
@@ -287,7 +287,7 @@ const ConfigurationForm = (props) => {
 				visualizationFormRemove={visualizationFormRemove}
 				visualizationFormUpdate={visualizationFormUpdate}
 				visualizationFormTypeUpdate={visualizationFormTypeUpdate}
-				
+
 				graphLinesAdd={graphLinesAdd}
 				graphLinesRemove={graphLinesRemove}
 				graphLinesUpdate={graphLinesUpdate}
