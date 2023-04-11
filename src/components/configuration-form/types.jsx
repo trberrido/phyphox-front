@@ -18,7 +18,7 @@ const SingleNumberForm = (props) => {
 		</Fieldset>
 
 		<Spacer size='xxsmall' />
-		
+
 		<Fieldset legend='Options'>
 			<LabeledInput
 				id='unit'
@@ -54,22 +54,7 @@ const HistogramForm = (props) => {
 				value={props.data.labelx ? props.data.labelx : ''}
 				handleChange={props.visualizationFormUpdate}
 				type='text' />
-			
-			{/*
-			<LabeledInput
-				id='xmin'
-				placeholder='x axis min'
-				value={props.data.xmin ? props.data.xmin : ''}
-				handleChange={props.visualizationFormUpdate}
-				type='number' />
-			
-			<LabeledInput
-				id='xmax'
-				placeholder='x axis max'
-				value={props.data.xmax ? props.data.xmax : ''}
-				handleChange={props.visualizationFormUpdate}
-				type='number' />
-			*/}
+
 			<LabeledInput
 				id='labely'
 				modificationCSS='variant'
@@ -77,31 +62,35 @@ const HistogramForm = (props) => {
 				value={props.data.labely ? props.data.labely : ''}
 				handleChange={props.visualizationFormUpdate}
 				type='text' />
-			
-			{/*
-				<LabeledInput
-				id='ymin'
-				placeholder='y axis min'
-				value={props.data.ymin ? props.data.ymin : ''}
-				handleChange={props.visualizationFormUpdate}
-				type='number' />
-			
+
+			<Spacer size='regular' />
+
 			<LabeledInput
-				id='ymax'
-				placeholder='y axis max'
-				value={props.data.ymax ? props.data.ymax : ''}
+				id='xmin'
+				modificationCSS='variant'
+				placeholder='x axis min'
+				value={props.data.xmin ? props.data.xmin : ''}
 				handleChange={props.visualizationFormUpdate}
 				type='number' />
 
 			<LabeledInput
-				id='bucketsnumber'
-				placeholder='Number of buckets'
-				value={props.data.bucketsnumber ? props.data.bucketsnumber : ''}
+				id='xmax'
+				modificationCSS='variant'
+				placeholder='x axis max'
+				value={props.data.xmax ? props.data.xmax : ''}
 				handleChange={props.visualizationFormUpdate}
 				type='number' />
-			*/
-			}
-				
+
+{
+	/*
+	<LabeledInput
+		id='bucketsnumber'
+		placeholder='Number of buckets'
+		value={props.data.bucketsnumber ? props.data.bucketsnumber : ''}
+		handleChange={props.visualizationFormUpdate}
+		type='number' />
+	*/
+}
 		</Fieldset>
 	</>)
 }
@@ -142,23 +131,24 @@ const GraphForm = (props) => {
 				value={props.data.labelx ? props.data.labelx : ''}
 				handleChange={props.visualizationFormUpdate}
 				type='text' />
-			{
-				/*
+
 			<LabeledInput
 				id='xmin'
+				modificationCSS='variant'
 				placeholder='x axis min'
 				value={props.data.xmin ? props.data.xmin : ''}
 				handleChange={props.visualizationFormUpdate}
 				type='number' />
-			
+
 			<LabeledInput
 				id='xmax'
+				modificationCSS='variant'
 				placeholder='x axis max'
 				value={props.data.xmax ? props.data.xmax : ''}
 				handleChange={props.visualizationFormUpdate}
 				type='number' />
-				*/
-			}
+
+			<Spacer size='regular' />
 
 			<LabeledInput
 				id='labely'
@@ -167,30 +157,32 @@ const GraphForm = (props) => {
 				value={props.data.labely ? props.data.labely : ''}
 				handleChange={props.visualizationFormUpdate}
 				type='text' />
-{
-	/*
 
 			<LabeledInput
 				id='ymin'
+				modificationCSS='variant'
 				placeholder='y axis min'
 				value={props.data.ymin ? props.data.ymin : ''}
 				handleChange={props.visualizationFormUpdate}
 				type='number' />
-			
+
 			<LabeledInput
 				id='ymax'
+				modificationCSS='variant'
 				placeholder='y axis max'
 				value={props.data.ymax ? props.data.ymax : ''}
 				handleChange={props.visualizationFormUpdate}
 				type='number' />
-	
-			<LabeledInput
-				id='granularity'
-				placeholder='Granularity'
-				value={props.data.granularity ? props.data.granularity : ''}
-				handleChange={props.visualizationFormUpdate}
-				type='number' />
-	 */
+
+{
+	/*
+	<LabeledInput
+		id='granularity'
+		placeholder='Granularity'
+		value={props.data.granularity ? props.data.granularity : ''}
+		handleChange={props.visualizationFormUpdate}
+		type='number' />
+	*/
 }
 
 		</Fieldset>
@@ -203,18 +195,18 @@ const GraphForm = (props) => {
 
 			{
 				props.data.lines.map((line, lineIndex) => (
-					<div 
+					<div
 						key={lineIndex.toString() + '_line'}
 						data-index={lineIndex.toString()}
 						className='visualization-graph__line-list'>
 
-						{lineIsSingle ? null : 
+						{lineIsSingle ? null :
 							<ButtonIcon
 								value='delete'
 								classes='graph-line__delete-button'
 								handleClick={props.graphLinesRemove} />
 						}
-					
+
 						<LabeledInput
 							id='idline'
 							placeholder='Line id'
@@ -229,10 +221,10 @@ const GraphForm = (props) => {
 							modificationCSS='variant'
 							value={line.colorline ? line.colorline : '#ffffff'}
 							handleChange={props.graphLinesUpdate} />
-				
+
 				{
 					/*
-					
+
 						<Fieldset legend='Select line style'>
 
 							{
@@ -252,14 +244,14 @@ const GraphForm = (props) => {
 						</Fieldset>
 					 */
 				}
-					
+
 
 					</div>
 				))
 
 			}
 			<Button
-				text='Add a new line' 
+				text='Add a new line'
 				handleClick={props.graphLinesAdd}
 				/>
 
@@ -267,7 +259,6 @@ const GraphForm = (props) => {
 		</>
 	}
 	</>);
-		
 
 }
 

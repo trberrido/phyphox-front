@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 
 import VisualizationSingleNumber from "./singleNumber";
 import VisualizationHistogram from "./histogram";
@@ -64,10 +64,18 @@ const Visualization = (props) => {
 		stick: '#ADADAD47'
 	}
 	const visualization = props.data;
-
 	const [isFullscreen, setIsFullscreen] = useState(false);
 	const ref = useRef(null);
-
+	const domain = {
+		x : {
+			min: visualization.xmin !== 'undefined' && !isNaN(parseFloat(visualization.xmin)) ? parseFloat(visualization.xmin) : false,
+			max: visualization.xmax !== 'undefined' && !isNaN(parseFloat(visualization.xmax)) ? parseFloat(visualization.xmax) : false
+		},
+		y: {
+			min: visualization.ymin !== 'undefined' && !isNaN(parseFloat(visualization.ymin)) ? parseFloat(visualization.ymin) : false,
+			max: visualization.ymax !== 'undefined' && !isNaN(parseFloat(visualization.ymax)) ? parseFloat(visualization.ymax) : false
+		}
+	}
 	const [dimensions, setDimensions] = useState({width: 0, height: window.innerHeight * (isFullscreen ? .9 : .7)});
 
 	const toggleFullscreen = () => {
@@ -108,6 +116,83 @@ const Visualization = (props) => {
 
 	}, [dimensions, isFullscreen, ref])
 
+	const filteredData = useMemo(() => {
+
+		if (visualization.displayedData.length === 0)
+			return visualization.displayedData;
+
+		if (domain.x.min === false && domain.x.max === false
+			&& domain.y.min === false && domain.y.max === false)
+			return visualization.displayedData;
+
+		if (visualization.type === 'Histogram'){
+
+			const isInDomain = (item) => {
+				if ((domain.x.min === false || item >= domain.x.min)
+					&& (domain.x.max === false || item <= domain.x.max)){
+						return true
+					}
+				return false;
+			}
+			return visualization.displayedData.filter(isInDomain)
+		}
+
+		if (visualization.type === 'Graph'){
+
+			const filterItem = (item) => {
+
+				const newItem = {
+					x: [],
+					y: []
+				};
+				item.x.forEach((value, index) => {
+
+					if (((domain.x.min === false || value >= domain.x.min)
+						&& (domain.x.max === false || value <= domain.x.max))
+						&&
+						((domain.y.min === false || item.y[index] >= domain.y.min)
+						&& (domain.y.max === false || item.y[index] <= domain.y.max))
+					){
+						newItem.x.push(value)
+						newItem.y.push(item.y[index])
+					}
+
+				})
+				return newItem;
+
+			}
+
+			let filteredMeasures = [];
+			visualization.displayedData.measures.forEach((item) => {
+
+				const newItem = filterItem(item);
+
+				if (newItem.x.length)
+					filteredMeasures.push(newItem)
+
+			});
+
+			let filteredFits = {};
+			Object.entries(visualization.displayedData.fits).forEach(([key, value]) => {
+				const newItem = filterItem(value);
+				if (newItem.x.length)
+					filteredFits[key] = newItem;
+			})
+
+			if (!filteredMeasures.length && !Object.keys(filteredFits).length){
+				return [];
+			}
+
+			return {
+				measures: filteredMeasures,
+				fits: filteredFits
+			}
+		}
+
+		return visualization.displayedData;
+
+	}, [visualization.displayedData, domain, visualization.type]);
+
 	return (
 
 		<article className={'visualization' + (isFullscreen ? ' visualization--fullscreen' : '')} >
@@ -136,29 +221,31 @@ const Visualization = (props) => {
 
 					<div className='visualization__wrapper' ref={ref} >
 						{
-							(dimensions.width === 0 || visualization.displayedData.length === 0)  ?
+							(dimensions.width === 0 || filteredData.length === 0)  ?
 								<WaitingData isOnGoingExperiment={props.isOnGoingExperiment} />
 							:
 								{
 
 									'Single Number':<VisualizationSingleNumber
 														unit={visualization.unit}
-														data={visualization.displayedData}
+														data={filteredData}
 														isOnGoingExperiment={props.isOnGoingExperiment}	/>,
 
 									'Histogram': 	<VisualizationHistogram
 														dimensions={dimensions}
+														domain={domain}
 														colors={colors}
 														axisLabel={{x: visualization.labelx, y: visualization.labely}}
-														data={visualization.displayedData}
+														data={filteredData}
 														margins={margins} />,
 
 									'Graph':  		<VisualizationGraph
 														dimensions={dimensions}
 														isOnGoingExperiment={props.isOnGoingExperiment}
 														colors={colors}
+														domain={domain}
 														axisLabel={{x: visualization.labelx, y: visualization.labely}}
-														data={visualization.displayedData}
+														data={filteredData}
 														lines={visualization.lines}
 														margins={margins} />
 								}[visualization.type]

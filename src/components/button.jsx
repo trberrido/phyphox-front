@@ -124,7 +124,7 @@ const ButtonRestart = (props) => {
 			fetch(window.BASE + '/api/configurations/last')
 			.then((response) => response.json())
 			.then((result) => {
-				console.log(result)
+
 				const dateID = Date.now()
 				const configuration = result.id + '.json';
 

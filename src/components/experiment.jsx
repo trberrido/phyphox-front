@@ -3,7 +3,7 @@
 	<Experiment
 		<Visualisations : [
 			{
-					
+
 					SingleNumber || Histogram || Graph
 					AxisX, AxisY
 					Background

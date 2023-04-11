@@ -16,7 +16,9 @@ const LabeledInput = (props) => {
 	const modificationCSS = props.modificationCSS ? props.modificationCSS : 'regular';
 	const classInputType = props.type === 'color' ? '-color' : '';
 	const classIsHidden = props.isHidden ? ' form__labeled-input-container--hidden' : '';
-	
+	const min = props.min === 'undefined' ? null : props.min;
+	const max = props.max === 'undefined' ? null : props.max;
+
 	return (
 		<div className={'form__labeled-input-container' + classIsHidden + (props.modificationCSS ? ' form__labeled-input-container--' + props.modificationCSS : '')} >
 			<label
@@ -25,7 +27,7 @@ const LabeledInput = (props) => {
 					{props.placeholder}
 			</label>
 			{
-				props.icon ? 
+				props.icon ?
 				<span className='form__input-icon'>{props.icon}</span>
 				: null
 			}
@@ -35,11 +37,13 @@ const LabeledInput = (props) => {
 				onChange={props.handleChange}
 				name={props.id}
 				className={
-					'form__input' + classInputType 
+					'form__input' + classInputType
 					+ ' form__input--' + modificationCSS
 					+ (props.icon ? ' form__input-with-icon' : ' form__input-text-only')
 				}
 				placeholder={props.placeholder}
+				min={min}
+				max={max}
 				type={props.type ? props.type : 'text'}
 				accept={props.accept ? props.accept : null}
 				required={props.required} />

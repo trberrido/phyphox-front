@@ -82,6 +82,9 @@ const VisualizationGraph = (props) => {
 
 	const linesMinMax = useMemo(() => {
 
+		if (measures === null && fits === null)
+			return null;
+
 		const everyLines = [...measures, ...Object.values(fits)];
 		const everyMinMax = everyLines.map((line) => {
 			return ({
