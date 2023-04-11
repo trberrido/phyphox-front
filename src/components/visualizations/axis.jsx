@@ -9,7 +9,7 @@ const AxisY = (props) => {
 	const ticks = useMemo(() => {
 		const scientificNotation = d3.format('.1e');
 		return props.yScale
-						.ticks(5)
+						.ticks(4)
 						.filter(tick => {
 							return (
 								!props.type
@@ -30,6 +30,7 @@ const AxisY = (props) => {
 						fill='currentColor'
 						transform='rotate(-90)'
 						textAnchor='end'
+						fontSize='17'
 						x={margins.top * -1}
 						y='15' >
 							{props.label}
@@ -50,7 +51,7 @@ const AxisY = (props) => {
 						<line x1={margins.left} x2={dimensions.width - margins.right} stroke={props.colors.stick} />
 						<text
 							transform={`translate(${margins.left - 10}, 20)`}
-							fontSize='40'
+							fontSize='30'
 							textAnchor='end'
 							fill='currentColor'
 						>
@@ -71,7 +72,7 @@ const AxisX = (props) => {
 	const margins = props.margins;
 
 	const ticks = useMemo(() => {
-		return props.xScale.ticks(5)
+		return props.xScale.ticks(4)
 			.map(value => ({ value, xOffset: props.xScale(value)}))
 	}, [props]);
 
@@ -82,6 +83,7 @@ const AxisX = (props) => {
 					<text
 						fill='currentColor'
 						textAnchor='end'
+						fontSize='17'
 						x={dimensions.width - margins.right}
 						y={dimensions.height}
 					>{props.label}</text>
@@ -102,11 +104,11 @@ const AxisX = (props) => {
 							<line
 								y1={margins.top}
 								y2={dimensions.height - margins.bottom}
-								stroke={props.colors.stick} /> 
+								stroke={props.colors.stick} />
 
 							<text
 								transform={`translate(0,${dimensions.height + margins.top - margins.bottom + 40})`}
-								fontSize='40'
+								fontSize='30'
 								textAnchor='middle'
 								fill='currentColor'
 							>

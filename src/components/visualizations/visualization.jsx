@@ -54,9 +54,9 @@ const Visualization = (props) => {
 
 	const margins = {
 		top: 10,
-		right: 50,
-		bottom: 75,
-		left: 175
+		right: 25,
+		bottom: 100,
+		left: 125
 	}
 	const colors = {
 		text: '#ADADAD',
@@ -66,16 +66,23 @@ const Visualization = (props) => {
 	const visualization = props.data;
 	const [isFullscreen, setIsFullscreen] = useState(false);
 	const ref = useRef(null);
-	const domain = {
-		x : {
-			min: visualization.xmin !== 'undefined' && !isNaN(parseFloat(visualization.xmin)) ? parseFloat(visualization.xmin) : false,
-			max: visualization.xmax !== 'undefined' && !isNaN(parseFloat(visualization.xmax)) ? parseFloat(visualization.xmax) : false
-		},
-		y: {
-			min: visualization.ymin !== 'undefined' && !isNaN(parseFloat(visualization.ymin)) ? parseFloat(visualization.ymin) : false,
-			max: visualization.ymax !== 'undefined' && !isNaN(parseFloat(visualization.ymax)) ? parseFloat(visualization.ymax) : false
-		}
-	}
+	const domain = useMemo(() => {
+
+		return (
+			{
+				x: {
+					min: visualization.xmin !== 'undefined' && !isNaN(parseFloat(visualization.xmin)) ? parseFloat(visualization.xmin) : false,
+					max: visualization.xmax !== 'undefined' && !isNaN(parseFloat(visualization.xmax)) ? parseFloat(visualization.xmax) : false
+				},
+				y: {
+					min: visualization.ymin !== 'undefined' && !isNaN(parseFloat(visualization.ymin)) ? parseFloat(visualization.ymin) : false,
+					max: visualization.ymax !== 'undefined' && !isNaN(parseFloat(visualization.ymax)) ? parseFloat(visualization.ymax) : false
+				}
+			}
+		)
+
+	}, [visualization.xmin, visualization.xmax, visualization.ymin, visualization.ymax]);
+
 	const [dimensions, setDimensions] = useState({width: 0, height: window.innerHeight * (isFullscreen ? .9 : .7)});
 
 	const toggleFullscreen = () => {
