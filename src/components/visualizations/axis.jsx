@@ -47,7 +47,7 @@ const AxisY = (props) => {
 					>
 						<line x1={margins.left} x2={dimensions.width - margins.right} stroke={props.colors.stick} />
 						<text
-							transform={`translate(${margins.left - 10}, ${(props.type === 'Histogram') ? 0 : 20})`}
+							transform={`translate(${margins.left - 10}, ${(props.type === 'Histogram') ? 0 : 10})`}
 							fontSize='30'
 							textAnchor='end'
 							fill='currentColor'
