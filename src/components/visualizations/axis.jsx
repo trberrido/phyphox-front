@@ -13,7 +13,7 @@ const AxisY = (props) => {
 						.filter(tick => {
 							return (
 								!props.type
-								|| (props.type && props.type === 'histogram' && Number.isInteger(tick))
+								|| (Number.isInteger(tick))
 							)
 						})
 						.map((value) => {
@@ -46,11 +46,11 @@ const AxisY = (props) => {
 				ticks.map(({value, yOffset}) => (
 					<g
 						key={value}
-						transform={`translate(0, ${yOffset + 10})`}
+						transform={`translate(0, ${yOffset + margins.top})`}
 					>
 						<line x1={margins.left} x2={dimensions.width - margins.right} stroke={props.colors.stick} />
 						<text
-							transform={`translate(${margins.left - 10}, 20)`}
+							transform={`translate(${margins.left - 10}, ${props.type === 'Histogramm' ? 20 : 0})`}
 							fontSize='30'
 							textAnchor='end'
 							fill='currentColor'
@@ -107,7 +107,7 @@ const AxisX = (props) => {
 								stroke={props.colors.stick} />
 
 							<text
-								transform={`translate(0,${dimensions.height + margins.top - margins.bottom + 40})`}
+								transform={`translate(0,${dimensions.height + margins.top - margins.bottom})`}
 								fontSize='30'
 								textAnchor='middle'
 								fill='currentColor'

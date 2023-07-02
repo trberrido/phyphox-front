@@ -53,7 +53,7 @@ const VisualizationFooter = (props) => {
 const Visualization = (props) => {
 
 	const margins = {
-		top: 10,
+		top: 30,
 		right: 25,
 		bottom: 100,
 		left: 125
@@ -202,7 +202,7 @@ const Visualization = (props) => {
 
 	return (
 
-		<article className={'visualization' + (isFullscreen ? ' visualization--fullscreen' : '')} >
+		<article className={'visualization' + (isFullscreen ? ' visualization--fullscreen' : '') + ' visualization--' + visualization.type.toLowerCase() } >
 
 			<div className='visualization__frame'>
 

@@ -220,6 +220,7 @@ const VisualizationGraph = (props) => {
 					</g>
 
 				<AxisY
+					type='Graph'
 					yScale={scales.y}
 					dimensions={dimensions}
 					margins={margins}

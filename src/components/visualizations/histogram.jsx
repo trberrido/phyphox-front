@@ -80,7 +80,7 @@ const VisualizationHistogram = (props) => {
 					}
 				</g>
 				<AxisY
-					type='histogram'
+					type='Histogram'
 					yScale={yScale}
 					dimensions={dimensions}
 					margins={margins}
