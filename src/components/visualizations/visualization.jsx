@@ -125,6 +125,8 @@ const Visualization = (props) => {
 
 	const filteredData = useMemo(() => {
 
+		return visualization.displayedData;
+		/*
 		if (visualization.displayedData.length === 0)
 			return visualization.displayedData;
 
@@ -197,8 +199,9 @@ const Visualization = (props) => {
 		}
 
 		return visualization.displayedData;
-
-	}, [visualization.displayedData, domain, visualization.type]);
+		*/
+//	}, [visualization.displayedData, domain, visualization.type]);
+	}, [visualization.displayedData]);
 
 	return (
 
@@ -242,7 +245,10 @@ const Visualization = (props) => {
 														dimensions={dimensions}
 														domain={domain}
 														colors={colors}
-														axisLabel={{x: visualization.labelx, y: visualization.labely}}
+														axisLabel={{
+															x: visualization.labelx,
+															y: visualization.labely
+														}}
 														data={filteredData}
 														margins={margins} />,
 
@@ -251,7 +257,10 @@ const Visualization = (props) => {
 														isOnGoingExperiment={props.isOnGoingExperiment}
 														colors={colors}
 														domain={domain}
-														axisLabel={{x: visualization.labelx, y: visualization.labely}}
+														axisLabel={{
+															x: visualization.labelx,
+															y: visualization.labely
+														}}
 														data={filteredData}
 														lines={visualization.lines}
 														margins={margins} />

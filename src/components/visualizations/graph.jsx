@@ -67,6 +67,7 @@ const Plots = (props) => {
 const VisualizationGraph = (props) => {
 
 	const margins = props.margins;
+	const domain = props.domain;
 	const lines = props.lines;
 	const fits = props.data.fits ? props.data.fits : null;
 	const measures = props.data.measures ? props.data.measures : null;
@@ -95,7 +96,7 @@ const VisualizationGraph = (props) => {
 			});
 		})
 
-		return everyMinMax.reduce((previous, current) => (
+		const minMaxFromData = everyMinMax.reduce((previous, current) => (
 			{
 				x0: previous.x0 < current.x0 ? previous.x0 : current.x0,
 				x1: previous.x1 > current.x1 ? previous.x1 : current.x1,
@@ -104,7 +105,14 @@ const VisualizationGraph = (props) => {
 			}
 		));
 
-	}, [measures, fits]);
+		return ({
+			x0: domain.x.min ? domain.x.min : minMaxFromData.x0,
+			x1: domain.x.max ? domain.x.max : minMaxFromData.x1,
+			y0: domain.y.min ? domain.y.min : minMaxFromData.y0,
+			y1: domain.y.max ? domain.y.max : minMaxFromData.y1
+		});
+
+	}, [measures, fits, domain]);
 
 	const [scales, setScales] = useState({
 		x: d3
