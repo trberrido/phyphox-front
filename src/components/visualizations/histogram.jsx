@@ -19,7 +19,8 @@ const Bar = (props) => {
 			y={props.yScale(props.bucket.length)}
 			height={maxHeight - props.yScale(props.bucket.length)}
 		/>
-	)
+	);
+
 }
 
 

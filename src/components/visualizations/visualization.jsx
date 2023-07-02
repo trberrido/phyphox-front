@@ -125,8 +125,6 @@ const Visualization = (props) => {
 
 	const filteredData = useMemo(() => {
 
-		return visualization.displayedData;
-		/*
 		if (visualization.displayedData.length === 0)
 			return visualization.displayedData;
 
@@ -148,6 +146,8 @@ const Visualization = (props) => {
 
 		if (visualization.type === 'Graph'){
 
+			return visualization.displayedData;
+			/*
 			const filterItem = (item) => {
 
 				const newItem = {
@@ -196,12 +196,12 @@ const Visualization = (props) => {
 				measures: filteredMeasures,
 				fits: filteredFits
 			}
+			*/
 		}
 
 		return visualization.displayedData;
-		*/
-//	}, [visualization.displayedData, domain, visualization.type]);
-	}, [visualization.displayedData]);
+
+	}, [visualization.displayedData, domain, visualization.type]);
 
 	return (
 
