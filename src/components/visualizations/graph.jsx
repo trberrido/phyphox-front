@@ -55,8 +55,8 @@ const Plots = (props) => {
 					key={index.toString()}
 					cx={props.xScale(plot)}
 					cy={props.yScale(props.plots.y[index])}
-					r={3}
-					fill='currentColor' />
+					r={6}
+					fill='white' />
 			))
 		}
 	</>)

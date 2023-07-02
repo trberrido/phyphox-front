@@ -11,10 +11,7 @@ const AxisY = (props) => {
 		return props.yScale
 						.ticks(4)
 						.filter(tick => {
-							return (
-								!props.type
-								|| (Number.isInteger(tick))
-							)
+							return (Number.isInteger(tick))
 						})
 						.map((value) => {
 							const displayedValue = value < 999 ? value : scientificNotation(value)
@@ -30,9 +27,9 @@ const AxisY = (props) => {
 						fill='currentColor'
 						transform='rotate(-90)'
 						textAnchor='end'
-						fontSize='17'
+						fontSize='30'
 						x={margins.top * -1}
-						y='15' >
+						y='30' >
 							{props.label}
 						</text>
 				:
@@ -50,7 +47,7 @@ const AxisY = (props) => {
 					>
 						<line x1={margins.left} x2={dimensions.width - margins.right} stroke={props.colors.stick} />
 						<text
-							transform={`translate(${margins.left - 10}, ${props.type === 'Histogramm' ? 20 : 0})`}
+							transform={`translate(${margins.left - 10}, ${(props.type === 'Histogram') ? 0 : 20})`}
 							fontSize='30'
 							textAnchor='end'
 							fill='currentColor'
@@ -83,7 +80,7 @@ const AxisX = (props) => {
 					<text
 						fill='currentColor'
 						textAnchor='end'
-						fontSize='17'
+						fontSize='30'
 						x={dimensions.width - margins.right}
 						y={dimensions.height}
 					>{props.label}</text>
