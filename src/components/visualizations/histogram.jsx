@@ -29,6 +29,7 @@ const VisualizationHistogram = (props) => {
 	const margins = props.margins;
 	const data = props.data;
 	const dimensions = props.dimensions;
+	const domain = props.domain;
 
 	const buckets = useMemo(() => {
 		const binCount = 10;
@@ -47,12 +48,20 @@ const VisualizationHistogram = (props) => {
 	}, [buckets, dimensions, margins]);
 
 	const xScale = useMemo(() => {
-		const [min, max] = d3.extent(data);
+		const getMinMax = () => {
+			let [min, max] = d3.extent(data);
+			if (domain.x.min)
+				min = domain.x.min;
+			if (domain.x.max)
+				max = domain.x.max;
+			return [min, max];
+		};
+		const [min, max] = getMinMax();
 		return d3
 			.scaleLinear()
 			.range([0, dimensions.width - (margins.left + margins.right)])
 			.domain([min, max])
-	}, [data, dimensions, margins]);
+	}, [data, dimensions, margins, domain]);
 
 	return (
 		<>
