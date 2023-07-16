@@ -20,7 +20,7 @@ const PageAdministration = () => {
 
 			{isAppListening ?
 				<ButtonStopListening /> :
-				<LinkPrivate replace to={'/administration/create_configuration'} type='important' text='Create new configuration'/>
+				<LinkPrivate replace to='/administration/create_configuration' type='important' text='Create new configuration'/>
 			}
 
 			<Spacer />

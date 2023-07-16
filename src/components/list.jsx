@@ -29,7 +29,7 @@ const ListItem = (props) => {
 			<Link
 				className={'file-list__link' + (isDisabled ? ' file-list__link--disabled' : '')}
 				aria-disabled={isDisabled}
-				to={props.actionURL + props.item.id}
+				to={window.SUBDIR + props.actionURL + props.item.id}
 			>
 				{props.actionName}
 			</Link>

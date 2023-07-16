@@ -78,7 +78,7 @@ const ButtonAskingConfirmation = (props) => {
 				type='important'
 				buttonClassName='button-step--xxlarge'
 				text={props.text}
-				handleClick={askForConfirmation} />	
+				handleClick={askForConfirmation} />
 		);
 	}
 
@@ -193,7 +193,7 @@ const LinkPrivate = (props) => {
 	const isAuthentificated = useContext(AuthentificationContext).isUserAuthentificated;
 
 	return (
-		isAuthentificated ? <Link to={props.to} type={props.type} className={'button button--important'}>{props.text}</Link> : null
+		isAuthentificated ? <Link to={window.SUBDIR + props.to} type={props.type} className={'button button--important'}>{props.text}</Link> : null
 	);
 }
 
