@@ -83,7 +83,7 @@ const Visualization = (props) => {
 
 	}, [visualization.xmin, visualization.xmax, visualization.ymin, visualization.ymax]);
 
-	const [dimensions, setDimensions] = useState({width: 0, height: window.innerHeight * (isFullscreen ? .9 : .7)});
+	const [dimensions, setDimensions] = useState({width: 0, height: window.innerHeight * (isFullscreen ? .8 : .7)});
 
 	const toggleFullscreen = () => {
 		setIsFullscreen(!isFullscreen);
@@ -113,7 +113,7 @@ const Visualization = (props) => {
 				if (entry.contentRect.width !== dimensions.width){
 					setDimensions({
 						width: entry.contentRect.width,
-						height: window.innerHeight * (isFullscreen ? .9 : .7)
+						height: window.innerHeight * (isFullscreen ? .8 : .7)
 					});
 				}
 			}
@@ -239,16 +239,19 @@ const Visualization = (props) => {
 									'Single Number':<VisualizationSingleNumber
 														unit={visualization.unit}
 														data={filteredData}
+														notation={visualization.notation}
 														isOnGoingExperiment={props.isOnGoingExperiment}	/>,
 
 									'Histogram': 	<VisualizationHistogram
 														dimensions={dimensions}
 														domain={domain}
+														bins={visualization.bins}
 														colors={colors}
 														axisLabel={{
 															x: visualization.labelx,
 															y: visualization.labely
 														}}
+														notation={visualization.notation}
 														data={filteredData}
 														margins={margins} />,
 
@@ -261,6 +264,7 @@ const Visualization = (props) => {
 															x: visualization.labelx,
 															y: visualization.labely
 														}}
+														notation={visualization.notation}
 														data={filteredData}
 														lines={visualization.lines}
 														margins={margins} />

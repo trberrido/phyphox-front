@@ -29,7 +29,7 @@ const ListItem = (props) => {
 			<Link
 				className={'file-list__link' + (isDisabled ? ' file-list__link--disabled' : '')}
 				aria-disabled={isDisabled}
-				to={window.SUBDIR + props.actionURL + props.item.id}
+				to={props.actionURL + props.item.id}
 			>
 				{props.actionName}
 			</Link>
@@ -40,7 +40,7 @@ const ListItem = (props) => {
 					onClick={props.isRunnable}
 					data-filename={props.item.filename}
 					className={'file-list__link' + (isDisabled ? ' file-list__link--disabled' : '')}
-					href={'https://' + window.location.hostname + '/api/' + props.collection + '/' + props.item.filename }
+					href={window.API + '/api/' + props.collection + '/' + props.item.filename }
 				>
 					Run
 				</a>
@@ -51,7 +51,7 @@ const ListItem = (props) => {
 				<a
 					className={'file-list__link' + (isDisabled ? ' file-list__link--disabled' : '')}
 					onClick={props.isDuplicable}
-					href={'https://' + window.location.hostname + '/api/' + props.collection + '/' + props.item.filename }
+					href={window.API + '/api/' + props.collection + '/' + props.item.filename }
 				>
 					Duplicate
 				</a>
@@ -73,7 +73,7 @@ const ListItem = (props) => {
 					className={'file-list__link' + (isDisabled ? ' file-list__link--disabled' : '')}
 					target='_blank' rel='noreferrer'
 					onClick={handleClick}
-					href={'https://' + window.location.hostname + '/api/' + props.collection + '/' + props.item.filename}>
+					href={window.API + '/api/' + props.collection + '/' + props.item.filename}>
 						delete
 					</a>
 				: null}
@@ -98,7 +98,7 @@ function List(props) {
 		e.preventDefault();
 		const dateID = Date.now()
 		const configuration = e.currentTarget.dataset.filename;
-		fetch(window.BASE + '/api/app/state.json', {
+		fetch(window.API + '/api/app/state.json', {
 			method: 'PUT',
 			credentials: 'include',
 			body: JSON.stringify({isListening: true, currentConfiguration: configuration, startedAt: dateID})
@@ -155,7 +155,7 @@ function List(props) {
 
 	useEffect(() => {
 		if (!list.isLoaded){
-			fetch(window.BASE + '/api/' + props.collection, {method: 'GET'})
+			fetch(window.API + '/api/' + props.collection, {method: 'GET'})
 			.then (res => res.json())
 			.then (
 				(result) => {
@@ -185,7 +185,7 @@ function List(props) {
 							isDownloadable={props.isDownloadable}
 							isDuplicable={props.optionDuplicate ? duplicateItem : false}
 							isRunnable={props.optionRunnable ? run : false}
-							downloadURL={'https://' + window.location.hostname + '/api/' + props.collection + '/' + item.filename}
+							downloadURL={window.API + '/api/' + props.collection + '/' + item.filename}
 							key={item.id}
 							item={item}
 							collection={props.collection}

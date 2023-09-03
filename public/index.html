@@ -2,10 +2,24 @@
 <html lang="en">
 	<head>
 	<script>
-		window.SUBDIR = '';
-		window.BASE = 'https://'
-			+ window.location.hostname
-			+ window.SUBDIR
+		// record the subdirectory
+		window.SUBDIR = window.location.pathname.substr(0, window.location.pathname.lastIndexOf("/"));
+		// if window.subdir contains /experiment or /administration at the end of the string, remove it
+		const filterSUBDIR = str => {
+			if (window.SUBDIR.substr(-1 * str.length) === str)
+				window.SUBDIR = window.SUBDIR.substr(0, window.SUBDIR.length - str.length);
+		}
+		const appSUBDIRS = [
+			'/experiment',
+			'/administration',
+			'/administration/edit_configuration'
+		];
+		appSUBDIRS.forEach(filterSUBDIR);
+		// append base tag to head with subdir var
+		const base = document.createElement('base');
+		base.href = window.SUBDIR + '/';
+		document.head.appendChild(base);
+		window.API = 'https://' + window.location.hostname + window.SUBDIR;
 	</script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -14,9 +28,6 @@
 		name="description"
 		content="a viewer for phyphox experiments"
     />
-	<script>
-		document.write('<base href="' + window.SUBDIR + '" >')
-	</script>
     <title>Phyphox experiments viewer</title>
   </head>
   <body class="body">

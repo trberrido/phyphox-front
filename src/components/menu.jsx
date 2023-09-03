@@ -29,7 +29,7 @@ class Burger extends React.Component {
 const Menu = (props) => {
 
 	const menuElements = [
-		{name: "Previous experiments", url: "/previous"},
+		{name: "Previous experiments", url: "/experiment"},
 		{name: "Administration", url: "/administration"}
 	];
 

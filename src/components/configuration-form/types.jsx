@@ -1,7 +1,7 @@
 import React from "react";
 import { lineTemplate } from "../../utils/configuration-loader.jsx";
 import { Button, ButtonIcon } from '../button.jsx'
-import { LabeledInput, Fieldset } from "../form";
+import { LabeledInput, Fieldset, Radio } from "../form";
 import Spacer from '../spacer';
 
 const SingleNumberForm = (props) => {
@@ -47,6 +47,17 @@ const HistogramForm = (props) => {
 		<Spacer size='xxsmall' />
 
 		<Fieldset legend='Options'>
+
+			<LabeledInput
+				id='bins'
+				modificationCSS='variant'
+				placeholder='Bins'
+				value={props.data.bins ? props.data.bins : ''}
+				handleChange={props.visualizationFormUpdate}
+				type='number' />
+
+			<Spacer size='regular' />
+
 			<LabeledInput
 				id='labelx'
 				modificationCSS='variant'
@@ -99,6 +110,7 @@ const GraphForm = (props) => {
 	if (props.data['lines'] === undefined)
 		props.data['lines'] = [{...lineTemplate}];
 	const lineIsSingle = props.data.lines.length < 2 ? true : false;
+
 	return (<>
 
 		<Fieldset legend='phyphox data'>
@@ -191,71 +203,94 @@ const GraphForm = (props) => {
 	<>
 		<Spacer size='xxsmall' />
 
-		<Fieldset legend='Customization'>
-
-			{
-				props.data.lines.map((line, lineIndex) => (
-					<div
-						key={lineIndex.toString() + '_line'}
-						data-index={lineIndex.toString()}
-						className='visualization-graph__line-list'>
-
-						{lineIsSingle ? null :
-							<ButtonIcon
-								value='delete'
-								classes='graph-line__delete-button'
-								handleClick={props.graphLinesRemove} />
-						}
-
-						<LabeledInput
-							id='idline'
-							placeholder='Line id'
-							value={line.idline ? line.idline : ''}
-							modificationCSS='variant'
-							handleChange={props.graphLinesUpdate} />
-
-						<LabeledInput
-							id='colorline'
-							placeholder='Color'
-							type='color'
-							modificationCSS='variant'
-							value={line.colorline ? line.colorline : '#ffffff'}
-							handleChange={props.graphLinesUpdate} />
+		{
+			props.hasPythonFile ?
+			<Fieldset legend='Customization'>
 
 				{
-					/*
+					props.data.lines.map((line, lineIndex) => (
+						<div
+							key={lineIndex.toString() + '_line'}
+							data-index={lineIndex.toString()}
+							className='visualization-graph__line-list'>
 
-						<Fieldset legend='Select line style'>
+							{lineIsSingle ? null :
+								<ButtonIcon
+									value='delete'
+									classes='graph-line__delete-button'
+									handleClick={props.graphLinesRemove} />
+							}
 
 							{
-								[	{ name: 'Solid', value: 'solid'},
-									{ name: 'Dashed', value: 'dashed'},
-									{ name: 'Dotted', value: 'dotted'},
-								].map((shape, styleIndex) => (
+								<Fieldset
+									className='form__fieldset--single-line'
+									legend='Select line style'
+									legendClassName='form-fieldset__legend--single-line'>
 
-									<Radio
-										id={'styleline-' + props.index.toString() + '-' + lineIndex.toString()}
-										placeholder={shape.name}
-										handleChange={props.graphLinesStyleUpdate}
-										key={styleIndex.toString() + '-linestyle'}
-										checked={line.style === shape.name ? true : false} />
-								))
+								{
+									['Solid', 'Dotted'].map((shape, styleIndex) => (
+
+										<Radio
+											id={'styleline-' + props.index.toString() + '-' + lineIndex.toString()}
+											placeholder={shape}
+											handleChange={props.graphLinesStyleUpdate}
+											key={styleIndex.toString() + '-linestyle'}
+											checked={line.styleline === shape ? true : false} />
+									))
+								}
+							</Fieldset>
 							}
-						</Fieldset>
-					 */
+
+							<LabeledInput
+								id='idline'
+								placeholder='Line id'
+								value={line.idline ? line.idline : ''}
+								modificationCSS='variant'
+								handleChange={props.graphLinesUpdate} />
+
+							<LabeledInput
+								id='colorline'
+								placeholder='Color'
+								type='color'
+								modificationCSS='variant'
+								value={line.colorline ? line.colorline : '#ffffff'}
+								handleChange={props.graphLinesUpdate} />
+
+					{
+						/*
+
+							<Fieldset legend='Select line style'>
+
+								{
+									[	{ name: 'Solid', value: 'solid'},
+										{ name: 'Dashed', value: 'dashed'},
+										{ name: 'Dotted', value: 'dotted'},
+									].map((shape, styleIndex) => (
+
+										<Radio
+											id={'styleline-' + props.index.toString() + '-' + lineIndex.toString()}
+											placeholder={shape.name}
+											handleChange={props.graphLinesStyleUpdate}
+											key={styleIndex.toString() + '-linestyle'}
+											checked={line.style === shape.name ? true : false} />
+									))
+								}
+							</Fieldset>
+						*/
+					}
+
+
+						</div>
+					))
+
 				}
+				<Button
+					text='Add a new line'
+					handleClick={props.graphLinesAdd}
+					/>
 
-
-					</div>
-				))
-
-			}
-			<Button
-				text='Add a new line'
-				handleClick={props.graphLinesAdd}
-				/>
-
-		</Fieldset>
+			</Fieldset>
+		: null }
 		</>
 	}
 	</>);

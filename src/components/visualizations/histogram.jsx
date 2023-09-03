@@ -5,9 +5,13 @@ import * as d3 from "d3";
 import Background from "./background";
 import { AxisX, AxisY } from "./axis";
 
+import formatValueAs from "../../utils/notation";
+
 const Bar = (props) => {
 
 	const maxHeight = props.dimensions.height - (props.margins.top + props.margins.bottom);
+	const minWdith = props.dimensions.width / props.bins;
+	const width = props.xScale(props.bucket.x1) - props.xScale(props.bucket.x0) ? props.xScale(props.bucket.x1) - props.xScale(props.bucket.x0) : minWdith;
 
 	return (
 		<rect
@@ -15,7 +19,7 @@ const Bar = (props) => {
 			fill='white'
 			opacity={.8}
 			x={props.xScale(props.bucket.x0)}
-			width={props.xScale(props.bucket.x1) - props.xScale(props.bucket.x0)}
+			width={width}
 			y={props.yScale(props.bucket.length)}
 			height={maxHeight - props.yScale(props.bucket.length)}
 		/>
@@ -31,14 +35,14 @@ const VisualizationHistogram = (props) => {
 	const data = props.data;
 	const dimensions = props.dimensions;
 	const domain = props.domain;
+	const bins = props.bins ? parseInt(props.bins) : 10;
 
 	const buckets = useMemo(() => {
-		const binCount = 10;
 		const [min, max] = d3.extent(data);
-		const thresholds = d3.range(min, max, (max - min) / binCount);
+		const thresholds = d3.range(min, max, (max - min) / bins);
 		const bucketor = d3.bin().thresholds(thresholds)
 		return bucketor(data);
-	}, [data]);
+	}, [data, bins]);
 
 	const yScale = useMemo(()=>{
 		return d3
@@ -80,6 +84,7 @@ const VisualizationHistogram = (props) => {
 					{
 						buckets.map((bucket, index) => (
 							<Bar key={index.toString()}
+								bins={bins}
 								xScale={xScale}
 								yScale={yScale}
 								bucket={bucket}
@@ -99,6 +104,7 @@ const VisualizationHistogram = (props) => {
 				/>
 				<AxisX
 					xScale={xScale}
+					notation={props.notation}
 					dimensions={dimensions}
 					margins={margins}
 					colors={colors}
@@ -115,9 +121,9 @@ const VisualizationHistogram = (props) => {
 
 			<p className='histogram-infos'>
 
-				<span className='histogram-infos__item'>mean: {d3.mean(data).toFixed(2)}</span>
-				<span className='histogram-infos__item'>median: {d3.median(data).toFixed(2)}</span>
-				<span className='histogram-infos__item'>deviation: {data.length > 1 ? d3.deviation(data).toFixed(2) : ' - '}</span>
+				<span className='histogram-infos__item'>mean: {formatValueAs(d3.mean(data), props.notation)}</span>
+				<span className='histogram-infos__item'>median: {formatValueAs(d3.median(data), props.notation)}</span>
+				<span className='histogram-infos__item'>deviation: {data.length > 1 ? formatValueAs(d3.deviation(data), props.notation) : ' - '}</span>
 
 			</p>
 

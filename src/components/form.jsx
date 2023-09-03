@@ -5,7 +5,7 @@ import './form.css';
 const Fieldset = (props) => {
 	return (
 		<fieldset className={'form__fieldset' + (props.className ? ' ' + props.className : '')}>
-			<legend className='form-fieldset__legend'>{props.legend}</legend>
+			<legend className={'form-fieldset__legend' + (props.legendClassName ? ' ' + props.legendClassName : '')}>{props.legend}</legend>
 			{props.children}
 		</fieldset>
 	);

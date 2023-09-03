@@ -16,7 +16,7 @@ import { AuthentificationContext } from '../context.jsx';
 import '../components/form.css';
 
 const PageLogin = () => {
-	
+
 	const {isUserAuthentificated, setIsUserAuthentificated} = useContext(AuthentificationContext);
 	let navigate = useNavigate();
 
@@ -28,7 +28,7 @@ const PageLogin = () => {
 		step: 'email',
 		doesUserExist: useLoaderData()
 	});
-	
+
 	const handleInputChange = (e) => {
 		setCredentials({...credentials, [e.target.name]: e.target.value});
 	}
@@ -39,11 +39,11 @@ const PageLogin = () => {
 	}
 
 	function handleSubmit(e){
-		
+
 		e.preventDefault();
 		setFormState({...formState, isDisabled: true});
 
-		fetch(window.BASE + '/api/user/',
+		fetch(window.API + '/api/user/',
 			{
 				headers: {'Content-Type': 'application/json'},
 				method: (formState.doesUserExist ? 'PUT' : 'POST'),
@@ -61,14 +61,14 @@ const PageLogin = () => {
 				} else {
 
 					if (formState.step === 'email'){
-						
+
 						setFormState({
 							...formState,
 							error: false,
 							step: 'password',
 							isDisabled: false
 						});
-						
+
 					} else {
 						setIsUserAuthentificated(true);
 						navigate('/administration', { replace: true });

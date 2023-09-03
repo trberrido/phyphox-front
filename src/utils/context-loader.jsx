@@ -1,5 +1,5 @@
 const getAuthentificationStatus = async () => {
-	return fetch(window.BASE + '/api/user/1.json', {
+	return fetch(window.API + '/api/user/1.json', {
 		credentials: 'include',
 		method: 'GET'
 	})
@@ -13,7 +13,7 @@ const getAuthentificationStatus = async () => {
 }
 
 const getAppState = () => {
-	return fetch(window.BASE + '/api/app/state.json', {
+	return fetch(window.API + '/api/app/state.json', {
 		method: 'GET'
 	})
 	.then((response) => { return response.json() })

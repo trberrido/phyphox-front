@@ -45,7 +45,7 @@ const router = createBrowserRouter([
 		errorElement: <PageError404 />,
 		children: [
 			{path: '', element: <PageHome />},
-			{path: 'previous', element: <PagePreviousXPs />},
+			{path: 'experiment', element: <PagePreviousXPs />},
 			{path: 'login',
 				loader: userExistLoader,
 				element: <PageLogin />},

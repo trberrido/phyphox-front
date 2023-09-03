@@ -8,7 +8,7 @@ const PageExperiment = () => {
 		<Experiment
 			title={request.experimentID}
 			isOnGoingExperiment={false}
-			fetchURL={window.BASE + '/api/experiments/' + request.experimentID + '.json'} />
+			fetchURL={window.API + '/api/experiments/' + request.experimentID + '.json'} />
 	</>);
 }
 

@@ -56,7 +56,7 @@ const Plots = (props) => {
 					cx={props.xScale(plot)}
 					cy={props.yScale(props.plots.y[index])}
 					r={6}
-					fill='white' />
+					fill={props.color ? props.color : 'white'} />
 			))
 		}
 	</>)
@@ -77,10 +77,10 @@ const VisualizationGraph = (props) => {
 	const coloredFits = Object.keys(fits).length ? lines.map((line) => (
 		{
 			coordinates: fits[line.idline],
-			color: line.colorline
+			color: line.colorline,
+			style: line.styleline
 		}
 	)) : null;
-
 	const linesMinMax = useMemo(() => {
 
 		if (measures === null && fits === null)
@@ -123,23 +123,29 @@ const VisualizationGraph = (props) => {
 			.scaleLinear()
 			.range([dimensions.height - (margins.top + margins.bottom), 0])
 			.domain([linesMinMax.y0, linesMinMax.y1]).nice()
-
 	});
+
+	const whiteSpace = (min, max) => {
+		return (max - min) * 0.05;
+	}
+
+	const xWhisteSpace = whiteSpace(linesMinMax.x0, linesMinMax.x1);
+	const yWhisteSpace = whiteSpace(linesMinMax.y0, linesMinMax.y1);
 
 	useEffect(() => {
 		setScales({
 			x: d3
 				.scaleLinear()
 				.range([0, dimensions.width - (margins.left + margins.right)])
-				.domain([linesMinMax.x0, linesMinMax.x1]),
+				.domain([linesMinMax.x0 - xWhisteSpace, linesMinMax.x1 + xWhisteSpace]),
 			y: d3
 				.scaleLinear()
 				.range([dimensions.height - (margins.top + margins.bottom), 0])
-				.domain([linesMinMax.y0, linesMinMax.y1])
+				.domain([linesMinMax.y0 - yWhisteSpace, linesMinMax.y1 + yWhisteSpace])
 				.nice()
 		})
 	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [dimensions, linesMinMax])
+	}, [dimensions, linesMinMax, xWhisteSpace, yWhisteSpace])
 
 	useEffect(() => {
 
@@ -211,18 +217,24 @@ const VisualizationGraph = (props) => {
 							))
 						}
 						{	coloredFits ?
-							Object.entries(coloredFits).map(([fitname, fit]) => (
-								fit.coordinates ?
-								<Path
-									key={fitname}
-									xScale={scales.x}
-									yScale={scales.y}
-									coordinates={fit.coordinates}
-									color={fit.color}
-								/>
-								:
-								null
-							))
+									Object.entries(coloredFits).map(([fitname, fit]) => (
+										fit.coordinates ?
+											fit.style === 'Solid' ?
+												<Path
+													key={fitname}
+													xScale={scales.x}
+													yScale={scales.y}
+													coordinates={fit.coordinates}
+													color={fit.color}
+												/>
+											:	<Plots
+													key={fitname}
+													xScale={scales.x}
+													yScale={scales.y}
+													color={fit.color}
+													plots={fit.coordinates}	/>
+										: null
+									))
 							: null
 						}
 					</g>
@@ -234,6 +246,7 @@ const VisualizationGraph = (props) => {
 					margins={margins}
 					colors={colors}
 					label={props.axisLabel.y ? props.axisLabel.y : false }
+					notation={props.notation}
 				/>
 				<AxisX
 					xScale={scales.x}
@@ -241,6 +254,7 @@ const VisualizationGraph = (props) => {
 					margins={margins}
 					colors={colors}
 					label={props.axisLabel.x ? props.axisLabel.x : false }
+					notation={props.notation}
 				/>
 				<Background
 					width={dimensions.width - (margins.left + margins.right)}

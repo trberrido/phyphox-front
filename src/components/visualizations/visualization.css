@@ -21,14 +21,19 @@
 }
 
 .visualization--fullscreen {
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	bottom: 0;
 	right: 0;
 	z-index: 9;
 	min-height: 100vh;
-	padding: var(--spacing-large);
+	padding: calc(.2 * var(--spacing-large));
+}
+
+.visualization--fullscreen .visualization__wrapper {
+	margin: 0;
+	min-height: 50vh;
 }
 
 .visualization__close-button {
@@ -58,7 +63,7 @@
 	color: var(--text-color-variant);
 	margin: 0;
 	max-width: 35rem;
-	font-size: var(--big);
+	font-size: var(--xlarge);
 }
 
 .visualization__participants-number {
@@ -74,8 +79,12 @@
 .visualization-number__output {
 	color: var(--text-color-variant);
 	font-weight: 700;
-	font-size: 10rem;
+	font-size: 12.5rem;
 	margin: 0;
+}
+
+.visualization--fullscreen .visualization-number__output {
+	font-size: 17.5rem;
 }
 
 .visualizations-number__nodata {
@@ -86,6 +95,7 @@
 
 .visualization-number__unit {
 	margin: 0;
+	font-size: var(--xlarge);
 }
 
 .visualization__description {
@@ -138,6 +148,14 @@
 	color: var(--text-color);
 }
 
+.visualization--single .visualization__wrapper {
+	display: flex;
+	flex-direction: row;
+	gap: var(--xlarge);
+	flex-wrap: wrap;
+	align-items: first baseline;
+}
+
 .graph-legendes__wrapper {
 	display: flex;
 	flex-direction: row-reverse;
@@ -167,10 +185,4 @@
 }
 .histogram-infos__item {
 	margin-right: var(--spacing-large);
-}
-
-@media screen and (max-width: 80rem){
-	.visualization-number__output {
-		font-size: 5rem;
-	}
 }

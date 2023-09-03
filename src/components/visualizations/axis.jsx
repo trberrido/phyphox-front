@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import * as d3 from "d3";
+import formatValueAs from "../../utils/notation";
 
 const AxisY = (props) => {
 
@@ -7,15 +8,13 @@ const AxisY = (props) => {
 	const margins = props.margins;
 
 	const ticks = useMemo(() => {
-		const scientificNotation = d3.format('.1e');
 		return props.yScale
 						.ticks(4)
 						.filter(tick => {
 							return (Number.isInteger(tick))
 						})
 						.map((value) => {
-							const displayedValue = value < 999 ? value : scientificNotation(value)
-							return ({value: displayedValue, yOffset: props.yScale(value)})
+							return ({value: value, yOffset: props.yScale(value)})
 						})
 	}, [props]);
 
@@ -52,7 +51,7 @@ const AxisY = (props) => {
 							textAnchor='end'
 							fill='currentColor'
 						>
-							{value}
+							{(props.type === 'Graph' && props.notation === 'Scientific') ? formatValueAs(value, props.notation) : value}
 						</text>
 
 					</g>
@@ -82,7 +81,7 @@ const AxisX = (props) => {
 						textAnchor='end'
 						fontSize='30'
 						x={dimensions.width - margins.right}
-						y={dimensions.height}
+						y={dimensions.height - 8}
 					>{props.label}</text>
 				:
 					null
@@ -109,7 +108,7 @@ const AxisX = (props) => {
 								textAnchor='middle'
 								fill='currentColor'
 							>
-								{value}
+								{props.notation === 'Scientific' ? formatValueAs(value, props.notation) : value}
 							</text>
 						</g>
 					))

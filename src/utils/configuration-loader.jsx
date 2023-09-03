@@ -1,5 +1,5 @@
 const lineTemplate = {
-	style: 'Solid',
+	styleline: 'Solid',
 	colorline: '#ffffff',
 	idline: ''
 }
@@ -14,6 +14,7 @@ const visualizationTemplate = {
 	title: '',
 	description: '',
 	type: '',
+	notation: 'Decimal',
 	pythonfile: {...fileTemplate}
 }
 
@@ -24,7 +25,7 @@ const visualizationTemplate = {
 */
 
 const configurationLoader = async ({ params }) => {
-	const configuration = await fetch(window.BASE + '/api/configurations/' + params.configurationID + '.json',
+	const configuration = await fetch(window.API + '/api/configurations/' + params.configurationID + '.json',
 		{credentials: 'include', method: 'GET'})
 		.then((response) => response.json())
 		.then((result) => ( result ))

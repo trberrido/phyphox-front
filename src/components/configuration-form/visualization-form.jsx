@@ -10,6 +10,7 @@ const VisualizationFormBody = (props) => {
 		<SpecificVisualizationType
 			data={props.visualization}
 			index={props.index}
+			hasPythonFile={props.visualization.pythonfile.name ? true : false}
 			visualizationFormUpdate={props.visualizationFormUpdate}
 			graphLinesAdd={props.graphLinesAdd ? props.graphLinesAdd : false }
 			graphLinesRemove={props.graphLinesRemove ? props.graphLinesRemove : false }
@@ -20,6 +21,8 @@ const VisualizationFormBody = (props) => {
 }
 
 const VisualizationFormHeader = (props) => {
+
+	const notations = ['Decimal', 'Scientific'];
 
 	return (<>
 		<LabeledInput
@@ -68,7 +71,7 @@ const VisualizationFormHeader = (props) => {
 						))
 					}
 					<Button
-						text='Add a variable' 
+						text='Add a variable'
 						handleClick={props.extraVariableAdd}
 						/>
 				</>
@@ -82,7 +85,7 @@ const VisualizationFormHeader = (props) => {
 					accept='.py'
 					type='file'
 				/>
-				<a className='configuration__link' href={'https://' + window.location.hostname + '/api/python'} rel='noreferrer' target='_blank'>Which version of python should I use ?</a>	
+				<a className='configuration__link' href={window.API + '/api/python'} rel='noreferrer' target='_blank'>Which version of python should I use ?</a>	
 			</>
 		}
 		</Fieldset>
@@ -100,6 +103,19 @@ const VisualizationFormHeader = (props) => {
 					checked={props.visualization.type === type ? true : false} />
 			))}
 		</Fieldset>
+
+		<Fieldset legend='Notation *'>
+			{notations.map((notation, index) => (
+				<Radio
+					id={'notation-' + props.index.toString()}
+					placeholder={notation}
+					handleChange={props.visualizationFormNotationUpdate}
+					key={index.toString() + '-' + notation}
+					required={true}
+					checked={props.visualization.notation === notation ? true : false} />
+			))}
+		</Fieldset>
+
 	</>);
 }
 
@@ -128,6 +144,7 @@ const VisualizationForm = (props) => {
 				visualizationTypes={props.visualizationTypes}
 				visualization={props.visualization}
 				visualizationFormTypeUpdate={props.visualizationFormTypeUpdate}
+				visualizationFormNotationUpdate={props.visualizationFormNotationUpdate}
 				visualizationFormUpdate={props.visualizationFormUpdate} />
 
 			<Spacer size='small' />
@@ -145,9 +162,7 @@ const VisualizationForm = (props) => {
 								graphLinesUpdate={props.graphLinesUpdate ? props.graphLinesUpdate : false}
 								graphLinesStyleUpdate={props.graphLinesStyleUpdate ? props.graphLinesStyleUpdate : false}
 			/>}
-			
 
-		
 	</div>);
 }
 

@@ -113,7 +113,7 @@ const ButtonRestart = (props) => {
 		if (props.handleClick)
 			props.handleClick();
 
-		fetch(window.BASE + '/api/app/state.json', {
+		fetch(window.API + '/api/app/state.json', {
 			method: 'PUT',
 			credentials: 'include',
 			body: JSON.stringify({isListening: false, currentConfiguration: "", startedAt: 0})
@@ -121,14 +121,14 @@ const ButtonRestart = (props) => {
 		.then((response) => response.json())
 		.then((result) => {
 
-			fetch(window.BASE + '/api/configurations/last')
+			fetch(window.API + '/api/configurations/last')
 			.then((response) => response.json())
 			.then((result) => {
 
 				const dateID = Date.now()
 				const configuration = result.id + '.json';
 
-				fetch(window.BASE + '/api/app/state.json', {
+				fetch(window.API + '/api/app/state.json', {
 					method: 'PUT',
 					credentials: 'include',
 					body: JSON.stringify({isListening: true, currentConfiguration: configuration, startedAt: dateID})
@@ -165,7 +165,7 @@ const ButtonStopListening = (props) => {
 		if (props.handleClick)
 			props.handleClick();
 
-		fetch(window.BASE + '/api/app/state.json', {
+		fetch(window.API + '/api/app/state.json', {
 			method: 'PUT',
 			credentials: 'include',
 			body: JSON.stringify({isListening: false, currentConfiguration: "", startedAt: 0})
@@ -193,7 +193,7 @@ const LinkPrivate = (props) => {
 	const isAuthentificated = useContext(AuthentificationContext).isUserAuthentificated;
 
 	return (
-		isAuthentificated ? <Link to={window.SUBDIR + props.to} type={props.type} className={'button button--important'}>{props.text}</Link> : null
+		isAuthentificated ? <Link to={props.to} type={props.type} className={'button button--important'}>{props.text}</Link> : null
 	);
 }
 

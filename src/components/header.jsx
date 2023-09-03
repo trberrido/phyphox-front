@@ -23,7 +23,7 @@ const Header = () => {
 
 	const handleLogOutButton = () => {
 
-		fetch(window.BASE + '/api/user/', {
+		fetch(window.API + '/api/user/', {
 			method: 'PUT',
 			credentials: 'include'
 		})

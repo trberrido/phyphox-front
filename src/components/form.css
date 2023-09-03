@@ -69,13 +69,12 @@
 	border-radius: var(--radius-default);
 	height: 2rem;
     width: 4rem;
+	margin: var(--spacing-small) 0;
 }
 
 .form__label.form__label--variant {
 	width: 25%
 }
-
-
 
 .form__fieldset {
 	border: none;
@@ -83,10 +82,22 @@
 	margin: var(--spacing-regular) 0;
 }
 
+.form__fieldset--single-line {
+	margin: var(--spacing-small) 0;
+	color: var(--text-color);
+}
+
 .form-fieldset__legend {
 	font-weight: 700;
 	color: var(--text-color-variant);
 	margin: calc(var(--spacing-regular) * .5) 0;
+}
+
+.form-fieldset__legend--single-line {
+	float: left;
+	min-width: 25%;
+	font-weight: 400;
+	color: var(--text-color);
 }
 
 .form__textarea {
