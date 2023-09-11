@@ -7,8 +7,8 @@
 	color: var(--text-color-variant);
 	font-weight: 700;
 	margin: 0;
-	font-size: var(--xxlarge);
-	line-height:var(--xxlarge);
+	font-size: var(--xlarge);
+	line-height:var(--xlarge);
 	margin: var(--spacing-regular) 0;
 }
 
