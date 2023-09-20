@@ -25,10 +25,11 @@ const AxisY = (props) => {
 					<text
 						fill='currentColor'
 						transform='rotate(-90)'
-						textAnchor='middle'
+						//textAnchor='end'  // caption at the top of the axis
+						textAnchor='middle'  // caption at the middle of the axis
 						fontSize='30'
-						//x={margins.top * -1 }
-						x={- dimensions.height/2 }
+						//x={margins.top * -1 } // caption at the top of the axis
+						x={- dimensions.height/2 } // caption at the middle of the axis
 						y='30' >
 							{props.label}
 						</text>
@@ -79,10 +80,11 @@ const AxisX = (props) => {
 				props.label ?
 					<text
 						fill='currentColor'
-						textAnchor='middle'
+						// textAnchor='end' // caption at the right of the axis
+						textAnchor='middle' // caption at the middle of the axis
 						fontSize='30'
-						//x={dimensions.width - margins.right}
-						x={dimensions.width/2}
+						//x={dimensions.width - margins.right} // caption at the right of the axis
+						x={dimensions.width/2} // caption at the middle of the axis
 						y={dimensions.height - 8}
 					>{props.label}</text>
 				:
