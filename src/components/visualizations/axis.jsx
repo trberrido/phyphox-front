@@ -25,7 +25,7 @@ const AxisY = (props) => {
 					<text
 						fill='currentColor'
 						transform='rotate(-90)'
-						textAnchor='end'
+						textAnchor='middle'
 						fontSize='30'
 						x={margins.top * -1}
 						y='30' >
@@ -78,7 +78,7 @@ const AxisX = (props) => {
 				props.label ?
 					<text
 						fill='currentColor'
-						textAnchor='end'
+						textAnchor='middle'
 						fontSize='30'
 						x={dimensions.width - margins.right}
 						y={dimensions.height - 8}
