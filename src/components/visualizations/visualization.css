@@ -63,7 +63,7 @@
 	color: var(--text-color-variant);
 	margin: 0;
 	max-width: 35rem;
-	font-size: var(--xlarge);
+	font-size: var(--xxxlarge);
 }
 
 .visualization__participants-number {
@@ -95,7 +95,8 @@
 
 .visualization-number__unit {
 	margin: 0;
-	font-size: var(--xlarge);
+	/* font-size: var(--xxlarge); */
+	font-size: 10.5rem;
 }
 
 .visualization__description {

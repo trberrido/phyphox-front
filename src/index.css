@@ -17,6 +17,8 @@
 	--text-color-theme-light: #3A3A3A;
 	--background-theme-light: #FFFFFF;
 
+	/* --primary-color: #25ef97; green */ 
+	/* --primary-color: #ef7925; orange */ 
 	--primary-color: #ef7925;
 	--primary-color-darker: #3f210b;
 	--secondary-color: #2C79EC;
@@ -36,6 +38,7 @@
 	--delay-middle: .5s;
 	--delay-long: 1s;
 
+	--xxxlarge: 4rem;
 	--xxlarge: 3rem;
 	--xlarge: 2rem;
 	--large: 1.5rem;
