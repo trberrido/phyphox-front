@@ -37,9 +37,9 @@ const VisualizationHistogram = (props) => {
 
 	const getMinMax = () => { // min max of the data except if defined by the user
 		let [min, max] = d3.extent(data);
-		if (typeof domain.x.min == "number")
+		if (typeof domain.x.min == "number") // if value min defined by the user, use it
 			min = domain.x.min;
-		if (typeof domain.x.max  == "number")
+		if (typeof domain.x.max  == "number") // if value max defined by the user, use it
 			max = domain.x.max;
 		return [min, max];
 	};
