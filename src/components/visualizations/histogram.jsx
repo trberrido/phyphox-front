@@ -10,9 +10,7 @@ import formatValueAs from "../../utils/notation";
 const Bar = (props) => {
 
 	const maxHeight = props.dimensions.height - (props.margins.top + props.margins.bottom);
-	const minWdith = props.dimensions.width / props.bins;
-	const width = props.xScale(props.bucket.x1) - props.xScale(props.bucket.x0) ? props.xScale(props.bucket.x1) - props.xScale(props.bucket.x0) : minWdith;
-
+	const width = (props.dimensions.width - props.margins.left - props.margins.right)/ props.bins ; 
 	return (
 		<rect
 			stroke='black'
@@ -37,11 +35,36 @@ const VisualizationHistogram = (props) => {
 	const domain = props.domain;
 	const bins = props.bins ? parseInt(props.bins) : 10;
 
+	const getMinMax = () => { // min max of the data except if defined by the user
+		let [min, max] = d3.extent(data);
+		if (typeof domain.x.min != "undefined")
+			min = domain.x.min;
+		if (typeof domain.x.max  != "undefined")
+			max = domain.x.max;
+		return [min, max];
+	};
+
 	const buckets = useMemo(() => {
-		const [min, max] = d3.extent(data);
+		let [min, max] = getMinMax();
 		const thresholds = d3.range(min, max, (max - min) / bins);
-		const bucketor = d3.bin().thresholds(thresholds)
-		return bucketor(data);
+		const bucketor = d3.bin().thresholds(thresholds) // d3.js has some trouble dealing with fixed thresholds - X0 and X1 values are not correct
+		// let's fix it
+		let bucketedData = bucketor(data);	
+		let indexThresholds = 0 ;
+		for (let i = thresholds.length ; i >= 0; i-- ){
+			if (thresholds[i] < bucketedData[0][0]) { // buckedData[0] is the list of data in the lowest bucket containing data
+				indexThresholds = i ;  // this is the index of the thresholds that contains the lowest data
+				break ;
+			}
+		}
+				
+		for (let i = 0 ; i < bucketedData.length ; i++){ // fixing the x0 and x1 - they should align with the thresholds values starting at indexThresholds
+			bucketedData[i].x0 = thresholds[indexThresholds+i];
+			bucketedData[i].x1 = bucketedData[i].x0 + (max - min) / bins ;
+		}
+
+		console.log(data, thresholds, bucketedData[0][0], bucketedData[0].x0, indexThresholds); //DEBUG
+		return bucketedData;
 	}, [data, bins]);
 
 	const yScale = useMemo(()=>{
@@ -53,14 +76,6 @@ const VisualizationHistogram = (props) => {
 	}, [buckets, dimensions, margins]);
 
 	const xScale = useMemo(() => {
-		const getMinMax = () => {
-			let [min, max] = d3.extent(data);
-			if (domain.x.min)
-				min = domain.x.min;
-			if (domain.x.max)
-				max = domain.x.max;
-			return [min, max];
-		};
 		const [min, max] = getMinMax();
 		return d3
 			.scaleLinear()
