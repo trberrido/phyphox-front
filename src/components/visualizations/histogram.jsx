@@ -37,9 +37,9 @@ const VisualizationHistogram = (props) => {
 
 	const getMinMax = () => { // min max of the data except if defined by the user
 		let [min, max] = d3.extent(data);
-		if (typeof domain.x.min != "undefined")
+		if (typeof domain.x.min == "number")
 			min = domain.x.min;
-		if (typeof domain.x.max  != "undefined")
+		if (typeof domain.x.max  == "number")
 			max = domain.x.max;
 		return [min, max];
 	};
@@ -63,7 +63,7 @@ const VisualizationHistogram = (props) => {
 			bucketedData[i].x1 = bucketedData[i].x0 + (max - min) / bins ;
 		}
 
-		console.log(data, thresholds, bucketedData[0][0], bucketedData[0].x0, indexThresholds); //DEBUG
+
 		return bucketedData;
 	}, [data, bins]);
 
