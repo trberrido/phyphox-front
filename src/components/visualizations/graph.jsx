@@ -74,17 +74,24 @@ const VisualizationGraph = (props) => {
 	const colors = props.colors;
 	const dimensions = props.dimensions;
 	const ref = useRef(null);
-	const coloredFits = Object.keys(fits).length ? lines.map((line) => (
+
+	const coloredFits = fits ? (Object.keys(fits).length ? lines.map((line) => (
 		{
-			coordinates: fits[line.idline],
-			color: line.colorline,
-			style: line.styleline
+		  coordinates: fits[line.idline],
+		  color: line.colorline,
+		  style: line.styleline
 		}
-	)) : null;
+	  )) : null) : null;
+
 	const linesMinMax = useMemo(() => {
 
 		if (measures === null && fits === null)
-			return null;
+			return  ({
+				x0: (typeof domain.x.min == "number") ? domain.x.min : 0, // default value when no data is present
+				x1: (typeof domain.x.max == "number") ? domain.x.max : 1,
+				y0: (typeof domain.y.min == "number") ? domain.y.min : 0,
+				y1: (typeof domain.y.max == "number") ? domain.y.max : 1
+			});
 
 		const everyLines = [...measures, ...Object.values(fits)];
 		const everyMinMax = everyLines.map((line) => {
@@ -106,10 +113,10 @@ const VisualizationGraph = (props) => {
 		));
 
 		return ({
-			x0: domain.x.min ? domain.x.min : minMaxFromData.x0,
-			x1: domain.x.max ? domain.x.max : minMaxFromData.x1,
-			y0: domain.y.min ? domain.y.min : minMaxFromData.y0,
-			y1: domain.y.max ? domain.y.max : minMaxFromData.y1
+			x0: (typeof domain.x.min == "number") ? domain.x.min : minMaxFromData.x0, // min max of the data, exept when set by the user
+			x1: (typeof domain.x.max == "number") ? domain.x.max : minMaxFromData.x1,
+			y0: (typeof domain.y.min == "number") ? domain.y.min : minMaxFromData.y0,
+			y1: (typeof domain.y.max == "number") ? domain.y.max : minMaxFromData.y1
 		});
 
 	}, [measures, fits, domain]);
@@ -129,19 +136,24 @@ const VisualizationGraph = (props) => {
 		return (max - min) * 0.05;
 	}
 
-	const xWhisteSpace = whiteSpace(linesMinMax.x0, linesMinMax.x1);
+	const xWhisteSpace = whiteSpace(linesMinMax.x0, linesMinMax.x1); // extra 5% margin when the max value is given by the data, so that the data point does not lie on the axis
 	const yWhisteSpace = whiteSpace(linesMinMax.y0, linesMinMax.y1);
+	const xWhisteSpaceMax = (typeof domain.x.max == "number") ? 0 : xWhisteSpace ; // if the value is set by the user, no extra margin
+	const xWhisteSpaceMin = (typeof domain.x.min == "number") ? 0 : xWhisteSpace ;
+	const yWhisteSpaceMax = (typeof domain.y.max == "number") ? 0 : yWhisteSpace ; 
+	const yWhisteSpaceMin = (typeof domain.y.min == "number") ? 0 : yWhisteSpace ;
+	
 
 	useEffect(() => {
 		setScales({
 			x: d3
 				.scaleLinear()
 				.range([0, dimensions.width - (margins.left + margins.right)])
-				.domain([linesMinMax.x0 - xWhisteSpace, linesMinMax.x1 + xWhisteSpace]),
+				.domain([linesMinMax.x0 - xWhisteSpaceMin, linesMinMax.x1 + xWhisteSpaceMax]),
 			y: d3
 				.scaleLinear()
 				.range([dimensions.height - (margins.top + margins.bottom), 0])
-				.domain([linesMinMax.y0 - yWhisteSpace, linesMinMax.y1 + yWhisteSpace])
+				.domain([linesMinMax.y0 - yWhisteSpaceMin, linesMinMax.y1 + yWhisteSpaceMax])
 				.nice()
 		})
 	// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -200,7 +212,7 @@ const VisualizationGraph = (props) => {
 							x='0' y='0' />
 				</clipPath>
 				</defs>
-
+				{!(measures === null && fits === null) && // if data are present, then plot
 					<g	id='svggraph'
 						clipPath='url(#clipath)'
 						width={dimensions.width - (margins.left + margins.right)}
@@ -238,7 +250,7 @@ const VisualizationGraph = (props) => {
 							: null
 						}
 					</g>
-
+				}
 				<AxisY
 					type='Graph'
 					yScale={scales.y}
