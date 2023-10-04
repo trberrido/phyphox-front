@@ -36,10 +36,13 @@ const VisualizationHistogram = (props) => {
 	const bins = props.bins ? parseInt(props.bins) : 10;
 
 	const getMinMax = () => { // min max of the data except if defined by the user
-		let [min, max] = d3.extent(data);
-		if (typeof domain.x.min == "number") // if value min defined by the user, use it
+		let [min, max] = [0,1]; // default value, only used when no data are present and not defined by the user
+		if (data.length>0){
+			[min, max] = d3.extent(data);
+		}	
+		if (typeof domain.x.min == "number") // value defined by the user
 			min = domain.x.min;
-		if (typeof domain.x.max  == "number") // if value max defined by the user, use it
+		if (typeof domain.x.max  == "number")
 			max = domain.x.max;
 		return [min, max];
 	};
@@ -92,6 +95,7 @@ const VisualizationHistogram = (props) => {
 					width={dimensions.width - (margins.left + margins.right)}
 					height={dimensions.height - (margins.top + margins.bottom)}
 				/>
+				{(data.length>0) && // the <g></g> block is only added when data.length>0 - it draws the columns of the histogram
 				<g
 					width={dimensions.width - (margins.left + margins.right)}
 					height={dimensions.height - (margins.top + margins.bottom)}
@@ -108,7 +112,7 @@ const VisualizationHistogram = (props) => {
 							/>
 						))
 					}
-				</g>
+				</g>}
 				<AxisY
 					type='Histogram'
 					yScale={yScale}

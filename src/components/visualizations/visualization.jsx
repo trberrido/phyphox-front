@@ -231,9 +231,9 @@ const Visualization = (props) => {
 
 					<div className='visualization__wrapper' ref={ref} >
 						{
-							(dimensions.width === 0 || filteredData.length === 0)  ?
-								<WaitingData isOnGoingExperiment={props.isOnGoingExperiment} />
-							:
+							// (dimensions.width === 0 || filteredData.length === 0)  ?
+							// 	<WaitingData isOnGoingExperiment={props.isOnGoingExperiment} />
+							// :
 								{
 
 									'Single Number':<VisualizationSingleNumber
