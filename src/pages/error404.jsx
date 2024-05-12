@@ -2,7 +2,7 @@ import React from 'react';
 
 import {TitleLight} from '../components/title.jsx';
 
-import './404.css';
+import './error404.css';
 
 class PageError404 extends React.Component {
 	render(){

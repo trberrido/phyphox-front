@@ -1,0 +1,7 @@
+.text-content a {
+	color: var(--secondary-color);
+}
+
+.text-content address a {
+	color: var(--primary-color);
+}

@@ -13,6 +13,7 @@ import { AuthentificationContext, AppStateContext } from './context';
 import Loader from './components/loader';
 
 const PageHome = lazy(() => import('./pages/home.jsx'));
+const PageCredits = lazy(() => import('./pages/credits.jsx'));
 const PagePreviousXPs = lazy(() => import('./pages/previous_xp.jsx'));
 const PageExperiment = lazy(() => import('./pages/experiment.jsx'));
 const PageAdministration = lazy(() => import('./pages/administration.jsx'));
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
 		errorElement: <PageError404 />,
 		children: [
 			{path: '', element: <PageHome />},
+			{path: 'credits', element: <PageCredits />},
 			{path: 'experiment', element: <PagePreviousXPs />},
 			{path: 'login',
 				loader: userExistLoader,

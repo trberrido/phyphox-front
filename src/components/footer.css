@@ -2,6 +2,9 @@
 	background-color: var(--background-variant);
 	padding: var(--spacing-large);
 	padding-left: var(--spacing-site-left);
+
+	display: flex;
+	gap: var(--spacing-large);
 }
 
 .footer__link {

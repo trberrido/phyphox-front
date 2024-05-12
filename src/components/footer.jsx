@@ -7,11 +7,15 @@ class Footer extends React.Component {
 	return (
 		<footer className='footer'>
 			<a
-			className='footer__link'
-			target="_blank"
-			href="https://github.com/trberrido/phyphox"
-			rel="noreferrer">
-			Download app on Github</a>
+				className='footer__link'
+				href="/credits">
+				Credits</a>
+			<a
+				className='footer__link'
+				target="_blank"
+				href="https://github.com/trberrido/phyphox"
+				rel="noreferrer">
+				Download app on Github</a>
 		</footer>
 	);
 	}
