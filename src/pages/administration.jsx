@@ -16,9 +16,9 @@ const PageAdministration = () => {
 
 			<Spacer size='small' />
 
-			<p>Current state : the application is {isAppListening ? 'on 🐵' : 'off 🙈'}.</p>
+			<p>Current state : the application is {isAppListening === true ? 'on 🐵' : 'off 🙈'}.</p>
 
-			{isAppListening ?
+			{isAppListening === true ?
 				<ButtonStopListening /> :
 				<LinkPrivate replace to='/administration/create_configuration' type='important' text='Create new configuration'/>
 			}

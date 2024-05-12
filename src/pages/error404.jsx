@@ -1,6 +1,7 @@
 import React from 'react';
 
 import {TitleLight} from '../components/title.jsx';
+import { Link } from 'react-router-dom';
 
 import './error404.css';
 
@@ -9,7 +10,7 @@ class PageError404 extends React.Component {
 		return(
 			<main className='main-content'>
 				<TitleLight header='error 404' content='Page not found' />
-				<a className='not-found__link' href='/'>← back home</a>
+				<Link className='not-found__link' to=''>← back home</Link>
 			</main>
 		);
 	}

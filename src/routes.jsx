@@ -33,7 +33,7 @@ const ProtectedAuth = ({ children })  => {
 
 const ProtectedAppListening = ({ children }) => {
 	const isAppListening = useContext(AppStateContext).isAppListening;
-	if (isAppListening)
+	if (isAppListening === true)
 		return <Navigate to="/administration" replace />;
 	return children;
 }

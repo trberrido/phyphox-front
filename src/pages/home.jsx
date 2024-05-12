@@ -15,9 +15,9 @@ const PageHome = () => {
 	const isAppListening = useContext(AppStateContext).isAppListening;
 	return(<>
 		<Experiment
-			title={isAppListening ? 'Ongoing experience, data collection in progress' : 'Last experiment'}
+			title={isAppListening === true ? 'Ongoing experience, data collection in progress' : 'Last experiment'}
 			isOnGoingExperiment={isAppListening}
-			fetchURL={window.API + '/api/experiments/' + (isAppListening ? 'current' : 'last')} />
+			fetchURL={window.API + '/api/experiments/' + (isAppListening === true ? 'current' : 'last')} />
 	</>);
 
 }

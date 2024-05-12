@@ -32,7 +32,7 @@ const Title = (props) => {
 
 	const isAppListening = useContext(AppStateContext).isAppListening;
 
-	document.title = (isAppListening ? '🟩' : '🟧') + ' phyphox, ' + props.content;
+	document.title = (isAppListening === true ? '🟩' : '🟧') + ' phyphox, ' + props.content;
 	
 	return (
 		<TitleLight

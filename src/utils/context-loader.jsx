@@ -5,10 +5,8 @@ const getAuthentificationStatus = async () => {
 	})
 	.then((response) => { return response.json() })
 	.then(
-		(result) => {
-			return result
-		},
-		() => { return false }
+		(result) => result,
+		() => false
 	)
 }
 

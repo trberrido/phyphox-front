@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './footer.css';
 
@@ -6,10 +7,10 @@ class Footer extends React.Component {
 	render (){
 	return (
 		<footer className='footer'>
-			<a
+			<Link
 				className='footer__link'
-				href="/credits">
-				Credits</a>
+				to="/credits">
+				Credits</Link>
 			<a
 				className='footer__link'
 				target="_blank"

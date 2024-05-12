@@ -145,7 +145,7 @@ const ButtonRestart = (props) => {
 	}
 
 	return (
-		isAppListening ?
+		isAppListening === true ?
 			<ButtonAskingConfirmation
 				text='Restart'
 				confirmedAction={restart}
@@ -178,7 +178,7 @@ const ButtonStopListening = (props) => {
 	}
 
 	return (
-		isAppListening ?
+		isAppListening === true ?
 			<ButtonAskingConfirmation
 				text='Stop listening'
 				confirmedAction={stopListening}
