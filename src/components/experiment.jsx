@@ -49,7 +49,7 @@ const Experiment = (props) => {
 					if (result.hasOwnProperty('error')){
 						setExperiment ({...experiment,
 							isLoaded: true,
-							error: result.error
+							error: 'No experiment to display'
 						})
 					} else {
 						if (result === 'closing')
