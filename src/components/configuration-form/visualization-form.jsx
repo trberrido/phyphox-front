@@ -20,6 +20,11 @@ const VisualizationFormBody = (props) => {
 	);
 }
 
+const PythonHelp = () => (<>
+	<a className='configuration__link' href={window.API + '/api/python'} rel='noreferrer' target='_blank'>Which version of python should I use ?</a>
+	<a className='configuration__link' href='https://github.com/trberrido/phyphox/?tab=readme-ov-file#python-scripting' rel='noreferrer' target='_blank'>More informations and examples about python scripts</a>
+</>);
+
 const VisualizationFormHeader = (props) => {
 
 	const notations = ['Decimal', 'Scientific'];
@@ -74,6 +79,7 @@ const VisualizationFormHeader = (props) => {
 						text='Add a variable'
 						handleClick={props.extraVariableAdd}
 						/>
+					<PythonHelp />
 				</>
 			:
 			<>
@@ -85,7 +91,7 @@ const VisualizationFormHeader = (props) => {
 					accept='.py'
 					type='file'
 				/>
-				<a className='configuration__link' href={window.API + '/api/python'} rel='noreferrer' target='_blank'>Which version of python should I use ?</a>	
+				<PythonHelp />
 			</>
 		}
 		</Fieldset>

@@ -1,3 +1,9 @@
+.message__container {
+	max-width: 40rem;
+}
+
+.message__container video { width: 100% }
+
 .message {
 	margin-top: var(--spacing-large);
 	border: 1px solid;

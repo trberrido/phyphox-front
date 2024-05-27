@@ -26,8 +26,9 @@ const ProtectedAuth = ({ children })  => {
 	const isUserAuthentificated = useContext(AuthentificationContext).isUserAuthentificated;
 	if (isUserAuthentificated === null)
 		return <Loader />
-	if (isUserAuthentificated === true)
+	if (isUserAuthentificated === true){
 		return children;
+	}
 	return <Navigate to="/login" replace />;
 }
 

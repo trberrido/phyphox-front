@@ -10,7 +10,16 @@ const getAuthentificationStatus = async () => {
 	)
 }
 
-const getAppState = () => {
+const getServerAvailability = async () => {
+	return fetch(window.API + '/api/', {method: 'GET'})
+	.then((response) => { return response.json() })
+	.then(
+		(result) => result,
+		() => false
+	)
+}
+
+const getAppState = async () => {
 	return fetch(window.API + '/api/app/state.json', {
 		method: 'GET'
 	})
@@ -30,8 +39,9 @@ const getAppState = () => {
 const contextsLoader = async () => {
 	return {
 		isAppListening: await getAppState(),
-		isUserAuthentificated: await getAuthentificationStatus()
+		isUserAuthentificated: await getAuthentificationStatus(),
+		isServerAvailable: await getServerAvailability()
 	};
 }
 
-export {contextsLoader, getAppState, getAuthentificationStatus};
+export {contextsLoader, getAppState, getAuthentificationStatus, getServerAvailability};

@@ -47,7 +47,7 @@ const Header = () => {
 			<Menu isMenuOpen={isMenuOpen} onLinkClick={handleLinkClick} />
 		</div>
 	);
-	
+
 }
 
 export default Header;

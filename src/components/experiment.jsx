@@ -46,10 +46,15 @@ const Experiment = (props) => {
 			.then(response => response.json())
 			.then(
 				(result) => {
-					if (result.hasOwnProperty('error')){
+					if (result === null){
 						setExperiment ({...experiment,
 							isLoaded: true,
-							error: 'No experiment to display'
+							error: 'No data received'
+						})
+					} else if (result.hasOwnProperty('error')){
+						setExperiment ({...experiment,
+							isLoaded: true,
+							error: result.error
 						})
 					} else {
 						if (result === 'closing')

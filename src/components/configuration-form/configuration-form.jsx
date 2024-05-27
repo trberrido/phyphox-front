@@ -19,7 +19,7 @@
 		</form>
 */
 
-import React, { useState, useContext } from 'react';
+import React, { useState, /*useContext*/ } from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import Spacer from '../spacer';
 import { Button } from '../button';
@@ -29,7 +29,7 @@ import { lineTemplate, fileTemplate, visualizationTemplate } from '../../utils/c
 import VisualizationForm from "./visualization-form";
 import visualizationTypes from './types.jsx';
 import './configuration-form.css';
-import { AppStateContext } from '../../context.jsx';
+//import { AppStateContext } from '../../context.jsx';
 
 const ConfigurationFormHeader = (props) => {
 
@@ -108,7 +108,7 @@ const ConfigurationForm = (props) => {
 
 	const ressource = (props.method === 'PUT' ? '/' + project.id + '.json': '');
 
-	const setIsAppListening = useContext(AppStateContext).setIsAppListening;
+//	const setIsAppListening = useContext(AppStateContext).setIsAppListening;
 
 	const handleSubmit = (e) => {
 		e.preventDefault();

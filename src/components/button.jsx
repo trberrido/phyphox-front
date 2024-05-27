@@ -47,7 +47,7 @@ const ButtonIcon = (props) => {
 const ButtonPrivate = (props) => {
 	const isAuthentificated = useContext(AuthentificationContext).isUserAuthentificated;
 	return (
-		isAuthentificated ?
+		isAuthentificated === true ?
 			<Button
 				disabled={props.disabled}
 				type={props.type}
