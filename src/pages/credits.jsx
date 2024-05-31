@@ -22,7 +22,7 @@ const PageCredits = () => {
 				This project is free and can be modified (CC BY license).
 			</p>
 			<p>
-				The project benefited from the support of the “La Physique Otherwise” Chair of the Paris-Saclay foundation supported by the Air Liquide group and Crédit Agricole – CIB. Many thanks to the Center for Educational Experimentation of the Villebon Institute – Georges Charpak for its welcome.
+				The project benefited from the support of the “La Physique Autrement” Chair of the Paris-Saclay foundation supported by the Air Liquide group and Crédit Agricole – CIB. Many thanks to the Center for Educational Experimentation of the Villebon Institute – Georges Charpak for its welcome.
 			</p>
 			<p>
 				<address>
