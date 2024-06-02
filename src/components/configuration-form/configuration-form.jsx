@@ -216,6 +216,19 @@ const ConfigurationForm = (props) => {
 	const visualizationFormTypeUpdate = (e) => {
 		const index = e.currentTarget.closest('.configuration-visualization').dataset.index;
 		const copy = structuredClone(project);
+		// create a Set of all the keys from the differents visualizationTypes defined in types.jsx
+		const keys = new Set();
+		for (const types in visualizationTypes) {
+			for (const key in visualizationTypes[types]) {
+				keys.add(key);
+			}
+		}
+		// remove the keys that are present in the current visualization type
+		// so we have clean object
+		keys.forEach((key) => {
+			if ( key in copy.visualizations[index])
+				delete copy.visualizations[index][key];
+		});
 		copy.visualizations[index]['type'] = e.target.value;
 		setProject(copy);
 	}
