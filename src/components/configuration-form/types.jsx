@@ -307,7 +307,7 @@ const visualizationTypes = {
 		id: '',
 		labelx: '', xmin: '', xmax: '',
 		labely: '', ymin: '', ymax: '',
-		bucketsnumber: ''
+		bins: ''
 	},
 	'Graph': {
 		component: GraphForm,
