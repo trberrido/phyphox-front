@@ -311,7 +311,7 @@ const visualizationTypes = {
 	},
 	'Graph': {
 		component: GraphForm,
-		xid: '', yid: '',
+		idx: '', idy: '',
 		labelx: '', xmin: '', xmax: '',
 		labely: '', ymin: '', ymax: '',
 		lines: []
