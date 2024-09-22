@@ -10,7 +10,8 @@ class PageError404 extends React.Component {
 		return(
 			<main className='main-content'>
 				<TitleLight header='error 404' content='Page not found' />
-				<Link className='not-found__link' to=''>← back home</Link>
+				<Link className='not-found__link' to='/'>← back home</Link><br />
+				<Link className='not-found__link' to='/administration'>← back to administration</Link>
 			</main>
 		);
 	}
