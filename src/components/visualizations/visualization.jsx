@@ -4,20 +4,8 @@ import VisualizationSingleNumber from "./singleNumber";
 import VisualizationHistogram from "./histogram";
 import VisualizationGraph from "./graph";
 
-import Message from '../message.jsx';
-import Loader from '../loader.jsx';
-
 import './visualization.css';
 import { ButtonIcon } from '../button';
-
-const WaitingData = (props) => {
-
-	if (props.isOnGoingExperiment)
-		return <Loader />
-	else
-		return <Message message='No data to display.' />
-
-}
 
 const VisualizationFooter = (props) => {
 
@@ -124,6 +112,9 @@ const Visualization = (props) => {
 	}, [dimensions, isFullscreen, ref])
 
 	const filteredData = useMemo(() => {
+
+		if (visualization.displayedData === null)
+			return [];
 
 		if (visualization.displayedData.length === 0)
 			return visualization.displayedData;
