@@ -121,12 +121,12 @@ const ButtonRestart = (props) => {
 		.then((response) => response.json())
 		.then((result) => {
 
-			fetch(window.API + '/api/configurations/last')
+			fetch(window.API + '/api/experiments/last')
 			.then((response) => response.json())
 			.then((result) => {
 
-				const dateID = Date.now()
-				const configuration = result.id + '.json';
+				const dateID = Date.now();
+				const configuration = result.configurationid.split('_').slice(1).join('_');
 
 				fetch(window.API + '/api/app/state.json', {
 					method: 'PUT',
