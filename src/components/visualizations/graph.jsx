@@ -93,7 +93,9 @@ const VisualizationGraph = (props) => {
 				y1: (typeof domain.y.max == "number") ? domain.y.max : 1
 			});
 
-		const everyLines = [...measures, ...Object.values(fits)];
+		const everyLines = [
+			...(Array.isArray(measures) ? measures : []),
+			...Object.values(fits)];
 		const everyMinMax = everyLines.map((line) => {
 			return ({
 				x0: Math.min(...line['x']),
@@ -219,7 +221,7 @@ const VisualizationGraph = (props) => {
 						height={dimensions.height - (margins.top + margins.bottom)}
 						transform={`translate(${margins.left}, ${margins.top})`} >
 						{
-							measures.map((measure, index) => (
+							measures && measures.map((measure, index) => (
 								<Plots
 									key={index.toString()}
 									xScale={scales.x}
